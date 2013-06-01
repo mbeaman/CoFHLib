@@ -1,0 +1,16 @@
+CoFH (Cult of the Full Hub) Common Library License
+-------------------------------------------------------------------------------
+1) The code in this library is subject to change at any time.
+2) All code in this library is completely open source - you may do with it as
+	you wish (with two caveats, see 3 and 4). However, credit MUST be given to
+	Team CoFH and a link provided to this repository, no matter how much code
+	or how many art assets from this library are used.*
+3) Direct modifications and/or derivations of this library must also be open
+	source, WITH THIS LICENSE. This does not apply to classes which extend (as
+	per Java terminology) the classes provided in the library.
+4) Should you wish to make direct use of the library with the package
+	structure, you may NOT edit these files. That would wreck every other mod
+	that also uses the library. Don't be a jerk.
+
+*) Seriously, don't be a jerk. Provide credit please, a ton of work went into
+	this and hopefully it will allow for some great mods.
