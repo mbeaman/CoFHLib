@@ -5,6 +5,13 @@ import java.io.Serializable;
 
 import net.minecraft.world.chunk.Chunk;
 
+/**
+ * Standardized implementation for representing and manipulating Chunk Coordinates. Provides
+ * standard Java Collection interaction.
+ * 
+ * @author King Lemming
+ * 
+ */
 public final class ChunkCoord implements Comparable<ChunkCoord>, Serializable {
 
     public int chunkX;

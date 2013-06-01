@@ -5,7 +5,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 
 /**
- * This class is used to get recipes (IRecipe requires it...) with a container!
+ * This class is used to get recipes (IRecipe requires it...) with a Container.
  * 
  * @author Zeldo Kavira
  * 

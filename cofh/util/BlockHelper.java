@@ -15,6 +15,13 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
+/**
+ * Contains various helper functions to assist with {@link Block} and Block-related manipulation and
+ * interaction.
+ * 
+ * @author King Lemming
+ * 
+ */
 public final class BlockHelper {
 
     private BlockHelper() {

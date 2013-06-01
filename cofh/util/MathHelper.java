@@ -1,6 +1,12 @@
 
 package cofh.util;
 
+/**
+ * Contains various math-related helper functions. Often faster than conventional implementations.
+ * 
+ * @author King Lemming
+ * 
+ */
 public final class MathHelper {
 
     private MathHelper() {
@@ -11,7 +17,7 @@ public final class MathHelper {
     public static final double[] SIN_TABLE = new double[65536];
 
     static {
-        for (int i = 0; i < 65536; ++i) {
+        for (int i = 0; i < 65536; i++) {
             SIN_TABLE[i] = Math.sin(i / 65536D * 2 * Math.PI);
         }
         SIN_TABLE[0] = 0;
@@ -107,31 +113,54 @@ public final class MathHelper {
         return net.minecraft.util.MathHelper.floor_double(d);
     }
 
+    /**
+     * Unchecked implementation to round a number. Parameter should be known to be valid in advance.
+     */
     public static int round(double d) {
 
-        return (int) (d + 0.5d);
+        return (int) (d + 0.5D);
     }
 
+    /**
+     * Unchecked implementation to round a number up. Parameter should be known to be valid in
+     * advance.
+     */
     public static int ceil(double d) {
 
-        return (int) (d + 0.9999d);
+        return (int) (d + 0.9999D);
     }
 
+    /**
+     * Unchecked implementation to determine the smaller of two Floats. Parameters should be known
+     * to be valid in advance.
+     */
     public static float minF(float a, float b) {
 
         return a < b ? a : b;
     }
 
+    /**
+     * Unchecked implementation to determine the larger of two Floats. Parameters should be known to
+     * be valid in advance.
+     */
     public static float maxF(float a, float b) {
 
         return a > b ? a : b;
     }
 
+    /**
+     * Unchecked implementation to determine the smaller of two Integers. Parameters should be known
+     * to be valid in advance.
+     */
     public static int minI(int a, int b) {
 
         return a < b ? a : b;
     }
 
+    /**
+     * Unchecked implementation to determine the larger of two Integers. Parameters should be known
+     * to be valid in advance.
+     */
     public static int maxI(int a, int b) {
 
         return a > b ? a : b;

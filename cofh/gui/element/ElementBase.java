@@ -6,6 +6,13 @@ import net.minecraft.client.gui.FontRenderer;
 import cofh.gui.GuiBase;
 import cpw.mods.fml.client.FMLClientHandler;
 
+/**
+ * Base class for a modular GUI element. Has self-contained rendering methods and a link back to the
+ * {@link GuiBase} it is a part of.
+ * 
+ * @author King Lemming
+ * 
+ */
 public abstract class ElementBase {
 
     public static final SoundManager elementSoundManager = FMLClientHandler.instance().getClient().sndManager;

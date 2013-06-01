@@ -1,6 +1,12 @@
 
 package cofh.util;
 
+/**
+ * Contains various helper functions to assist with colors.
+ * 
+ * @author King Lemming
+ * 
+ */
 public final class ColorHelper {
 
     private ColorHelper() {

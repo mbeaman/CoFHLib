@@ -5,6 +5,13 @@ import java.io.Serializable;
 
 import net.minecraft.tileentity.TileEntity;
 
+/**
+ * Standardized implementation for representing and manipulating Block Coordinates. Provides
+ * standard Java Collection interaction.
+ * 
+ * @author King Lemming
+ * 
+ */
 public final class BlockCoord implements Comparable<BlockCoord>, Serializable {
 
     public int x;

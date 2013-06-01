@@ -4,6 +4,12 @@ package cofh.gui.element;
 import cofh.gui.GuiBase;
 import cofh.render.RenderHelper;
 
+/**
+ * Basic element which can render an arbitrary texture.
+ * 
+ * @author King Lemming
+ * 
+ */
 public class ElementSimple extends ElementBase {
 
     int texU = 0;

@@ -9,9 +9,19 @@ import java.util.logging.Logger;
 
 import cpw.mods.fml.common.FMLLog;
 
+/**
+ * This class allows a mod to easily implement a version update checker.
+ * 
+ * It also contains some version comparison functions which may be used at any point.
+ * 
+ * Instances of this class should be registered with {@link TickHandlerVersion}.
+ * 
+ * @author King Lemming
+ * 
+ */
 public class VersionHandler {
 
-    public static final String MC_VERSION = "1.5.1";
+    public static final String MC_VERSION = "1.5.2";
 
     boolean criticalUpdate;
     boolean newVersion;

@@ -9,6 +9,14 @@ import cofh.util.ColorHelper;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
 
+/**
+ * Handles chat notifications to players regarding mod updates.
+ * 
+ * Please note the initialization structure.
+ * 
+ * @author King Lemming
+ * 
+ */
 public class TickHandlerVersion implements IScheduledTickHandler {
 
     public static TickHandlerVersion instance = new TickHandlerVersion();
@@ -18,6 +26,10 @@ public class TickHandlerVersion implements IScheduledTickHandler {
     private static boolean sent;
     private static int modIndex = 0;
 
+    /**
+     * This should only be called when the TickHandlerVersion instance is registered as a Tick
+     * Handler.
+     */
     public static boolean initialize() {
 
         if (initialized) {
@@ -27,6 +39,10 @@ public class TickHandlerVersion implements IScheduledTickHandler {
         return true;
     }
 
+    /**
+     * This should be checked by all mods making use of this class. If this returns true, then the
+     * tick handler should NOT be registered again.
+     */
     public static boolean isInitialized() {
 
         return initialized;

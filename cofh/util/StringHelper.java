@@ -5,6 +5,12 @@ import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
 
+/**
+ * Contains various helper functions to assist with String manipulation.
+ * 
+ * @author King Lemming
+ * 
+ */
 public final class StringHelper {
 
     private StringHelper() {

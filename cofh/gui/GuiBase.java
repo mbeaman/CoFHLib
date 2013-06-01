@@ -18,6 +18,13 @@ import cofh.render.IconRegistry;
 import cofh.render.RenderHelper;
 import cofh.util.MathHelper;
 
+/**
+ * Base class for a modular GUIs. Works with Elements {@link ElementBase} and Tabs {@link TabBase}
+ * which are both modular elements.
+ * 
+ * @author King Lemming
+ * 
+ */
 public abstract class GuiBase extends GuiContainer {
 
     public static final String PATH_ELEMENTS = "/mods/cofh/textures/gui/elements/";
@@ -26,8 +33,8 @@ public abstract class GuiBase extends GuiContainer {
     protected int mouseX = 0;
     protected int mouseY = 0;
 
-    protected String texture;
     protected String name;
+    protected String texture;
     protected ArrayList<TabBase> tabs = new ArrayList<TabBase>();
     protected ArrayList<ElementBase> elements = new ArrayList<ElementBase>();
 
@@ -99,6 +106,9 @@ public abstract class GuiBase extends GuiContainer {
         super.handleMouseInput();
     }
 
+    /**
+     * Draws the elements for this GUI.
+     */
     protected void drawElements() {
 
         for (ElementBase element : elements) {
@@ -106,6 +116,9 @@ public abstract class GuiBase extends GuiContainer {
         }
     }
 
+    /**
+     * Draws the tabs for this GUI. Handles Tab open/close animation.
+     */
     protected void drawTabs() {
 
         int yPosRight = 4;

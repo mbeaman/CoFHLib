@@ -17,10 +17,34 @@ public class BucketHandler {
 
     public static BucketHandler instance = new BucketHandler();
 
+    private static boolean initialized;
+
     private static BiMap<Integer, Integer> buckets = HashBiMap.create();
 
     private BucketHandler() {
 
+    }
+
+    /**
+     * This should only be called when the BucketHandler instance is registered to the Forge Event
+     * Bus.
+     */
+    public static boolean initialize() {
+
+        if (initialized) {
+            return false;
+        }
+        initialized = true;
+        return true;
+    }
+
+    /**
+     * This should be checked by all mods making use of this class. If this returns true, then the
+     * instance should NOT be registered again.
+     */
+    public static boolean isInitialized() {
+
+        return initialized;
     }
 
     @ForgeSubscribe

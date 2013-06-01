@@ -7,6 +7,13 @@ import cofh.gui.GuiBase;
 import cofh.gui.TabTracker;
 import cofh.render.RenderHelper;
 
+/**
+ * Base class for a tab element. Has self-contained rendering methods and a link back to the
+ * {@link GuiBase} it is a part of.
+ * 
+ * @author King Lemming
+ * 
+ */
 public abstract class TabBase extends ElementBase {
 
     public boolean open;
