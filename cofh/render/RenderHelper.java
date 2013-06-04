@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
@@ -47,10 +48,9 @@ public final class RenderHelper {
             return;
         }
         renderer.setRenderBoundsFromBlock(block);
-
         GL11.glTranslated(translateX, translateY, translateZ);
-
         tessellator.startDrawingQuads();
+
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
         renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, texture);
 
@@ -68,7 +68,13 @@ public final class RenderHelper {
 
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
         renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, texture);
+
         tessellator.draw();
+    }
+
+    public static final Icon getFluidTexture(FluidStack fluid) {
+
+        return fluid.getFluid().getIcon(fluid);
     }
 
     public static final void bindItemTexture(ItemStack stack) {

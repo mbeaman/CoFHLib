@@ -57,6 +57,38 @@ public class ComparableItemStack {
         }
     }
 
+    public ComparableItemStack set(ItemStack stack) {
+
+        if (stack != null) {
+            itemID = stack.itemID;
+            metadata = stack.getItemDamage();
+            stackSize = stack.stackSize;
+            oreID = OreDictionary.getOreID(stack);
+        } else {
+            itemID = -1;
+            metadata = -1;
+            stackSize = -1;
+            oreID = -1;
+        }
+        return this;
+    }
+
+    public ComparableItemStack set(ComparableItemStack stack) {
+
+        if (stack != null) {
+            itemID = stack.itemID;
+            metadata = stack.metadata;
+            stackSize = stack.stackSize;
+            oreID = stack.oreID;
+        } else {
+            itemID = -1;
+            metadata = -1;
+            stackSize = -1;
+            oreID = -1;
+        }
+        return this;
+    }
+
     public boolean isItemEqual(ComparableItemStack other) {
 
         return other != null && (oreID != -1 && oreID == other.oreID || itemID == other.itemID && metadata == other.metadata);

@@ -240,6 +240,11 @@ public abstract class GuiBase extends GuiContainer {
      */
     public void drawFluid(int x, int y, FluidStack fluid, int width, int height) {
 
+        drawTiledTexture(x, y, fluid.getFluid().getIcon(fluid), width, height);
+    }
+
+    public void drawTiledTexture(int x, int y, Icon icon, int width, int height) {
+
         int i = 0;
         int j = 0;
 
@@ -250,7 +255,7 @@ public abstract class GuiBase extends GuiContainer {
             for (j = 0; j < height; j += 16) {
                 drawWidth = MathHelper.minI(width - x, 16);
                 drawHeight = MathHelper.minI(height - y, 16);
-                drawScaledTexturedModelRectFromIcon(x + i, y + j, fluid.getFluid().getIcon(fluid), drawWidth, drawHeight);
+                drawScaledTexturedModelRectFromIcon(x + i, y + j, icon, drawWidth, drawHeight);
             }
         }
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0F);
@@ -285,12 +290,12 @@ public abstract class GuiBase extends GuiContainer {
         tessellator.draw();
     }
 
-    public void drawScaledTexturedModelRectFromIcon(int x, int y, Icon theIcon, int width, int height) {
+    public void drawScaledTexturedModelRectFromIcon(int x, int y, Icon icon, int width, int height) {
 
-        double minU = theIcon.getMinU();
-        double maxU = theIcon.getMaxU();
-        double minV = theIcon.getMinV();
-        double maxV = theIcon.getMaxV();
+        double minU = icon.getMinU();
+        double maxU = icon.getMaxU();
+        double minV = icon.getMinV();
+        double maxV = icon.getMaxV();
 
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();

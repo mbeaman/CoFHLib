@@ -25,28 +25,6 @@ public class BucketHandler {
 
     }
 
-    /**
-     * This should only be called when the BucketHandler instance is registered to the Forge Event
-     * Bus.
-     */
-    public static boolean initialize() {
-
-        if (initialized) {
-            return false;
-        }
-        initialized = true;
-        return true;
-    }
-
-    /**
-     * This should be checked by all mods making use of this class. If this returns true, then the
-     * instance should NOT be registered again.
-     */
-    public static boolean isInitialized() {
-
-        return initialized;
-    }
-
     @ForgeSubscribe
     public void onBucketFill(FillBucketEvent event) {
 
