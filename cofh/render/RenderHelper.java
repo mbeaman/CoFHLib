@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
@@ -74,6 +75,9 @@ public final class RenderHelper {
 
     public static final Icon getFluidTexture(FluidStack fluid) {
 
+        if (fluid == null || fluid.getFluid() == null) {
+            return FluidRegistry.LAVA.getIcon();
+        }
         return fluid.getFluid().getIcon(fluid);
     }
 

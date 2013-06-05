@@ -240,6 +240,10 @@ public abstract class GuiBase extends GuiContainer {
      */
     public void drawFluid(int x, int y, FluidStack fluid, int width, int height) {
 
+        if (fluid == null || fluid.getFluid() == null) {
+            return;
+        }
+        RenderHelper.setBlockTextureSheet();
         drawTiledTexture(x, y, fluid.getFluid().getIcon(fluid), width, height);
     }
 
@@ -253,8 +257,8 @@ public abstract class GuiBase extends GuiContainer {
 
         for (i = 0; i < width; i += 16) {
             for (j = 0; j < height; j += 16) {
-                drawWidth = MathHelper.minI(width - x, 16);
-                drawHeight = MathHelper.minI(height - y, 16);
+                drawWidth = MathHelper.minI(width - i, 16);
+                drawHeight = MathHelper.minI(height - j, 16);
                 drawScaledTexturedModelRectFromIcon(x + i, y + j, icon, drawWidth, drawHeight);
             }
         }
@@ -292,6 +296,9 @@ public abstract class GuiBase extends GuiContainer {
 
     public void drawScaledTexturedModelRectFromIcon(int x, int y, Icon icon, int width, int height) {
 
+        if (icon == null) {
+            return;
+        }
         double minU = icon.getMinU();
         double maxU = icon.getMaxU();
         double minV = icon.getMinV();
