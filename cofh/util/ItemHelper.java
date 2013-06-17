@@ -2,8 +2,12 @@
 package cofh.util;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -31,6 +35,43 @@ public final class ItemHelper {
         }
         stack.splitStack(1);
         return stack;
+    }
+
+    /**
+     * Gets a vanilla CraftingManager result.
+     */
+    public static ItemStack findMatchingRecipe(InventoryCrafting inv, World world) {
+
+        ItemStack[] dmgItems = new ItemStack[2];
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
+            if (inv.getStackInSlot(i) != null) {
+                if (dmgItems[0] == null) {
+                    dmgItems[0] = inv.getStackInSlot(i);
+                } else {
+                    dmgItems[1] = inv.getStackInSlot(i);
+                    break;
+                }
+            }
+        }
+        if (dmgItems[1] != null && dmgItems[0].itemID == dmgItems[1].itemID && dmgItems[0].stackSize == 1 && dmgItems[1].stackSize == 1
+                && Item.itemsList[dmgItems[0].itemID].isRepairable()) {
+            Item theItem = Item.itemsList[dmgItems[0].itemID];
+            int var13 = theItem.getMaxDamage() - dmgItems[0].getItemDamageForDisplay();
+            int var8 = theItem.getMaxDamage() - dmgItems[1].getItemDamageForDisplay();
+            int var9 = var13 + var8 + theItem.getMaxDamage() * 5 / 100;
+            int var10 = MathHelper.maxI(0, theItem.getMaxDamage() - var9);
+            return new ItemStack(dmgItems[0].itemID, 1, var10);
+        } else {
+            IRecipe recipe;
+            for (int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); ++i) {
+                recipe = (IRecipe) CraftingManager.getInstance().getRecipeList().get(i);
+
+                if (recipe.matches(inv, world)) {
+                    return recipe.getCraftingResult(inv);
+                }
+            }
+            return null;
+        }
     }
 
     /**
@@ -117,6 +158,83 @@ public final class ItemHelper {
 
         ItemStack equipped = player.getCurrentEquippedItem() != null ? player.getCurrentEquippedItem() : null;
         return stack == null ? equipped == null : equipped != null && stack.isItemEqual(equipped) && ItemStack.areItemStackTagsEqual(stack, equipped);
+    }
+
+    /* Inventory Utilities */
+    /**
+     * Copy an entire inventory. Best to avoid doing this often.
+     */
+    public static ItemStack[] cloneInventory(ItemStack[] stacks) {
+
+        ItemStack[] inventoryCopy = new ItemStack[stacks.length];
+        for (int i = 0; i < stacks.length; i++) {
+            inventoryCopy[i] = stacks[i] == null ? null : stacks[i].copy();
+        }
+        return inventoryCopy;
+    }
+
+    /**
+     * Add an ItemStack to an inventory. Return true if the entire stack was added.
+     * 
+     * @param inventory
+     *            The inventory.
+     * @param stack
+     *            ItemStack to add.
+     * @param startIndex
+     *            First slot to attempt to add into. Does not loop around fully.
+     */
+    public static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack, int startIndex) {
+
+        if (stack == null) {
+            return true;
+        }
+        int openSlot = -1;
+        for (int i = startIndex; i < inventory.length; i++) {
+            if (areItemStacksEqualNoNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
+                int hold = inventory[i].getMaxStackSize() - inventory[i].stackSize;
+                if (hold >= stack.stackSize) {
+                    inventory[i].stackSize += stack.stackSize;
+                    stack = null;
+                    return true;
+                } else {
+                    stack.stackSize -= hold;
+                    inventory[i].stackSize += hold;
+                }
+            } else if (inventory[i] == null && openSlot == -1) {
+                openSlot = i;
+            }
+        }
+        if (stack != null) {
+            if (openSlot > -1) {
+                inventory[openSlot] = stack;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Shortcut method for above, assumes starting slot is 0.
+     */
+    public static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack) {
+
+        return addItemStackToInventory(inventory, stack, 0);
+    }
+
+    public static boolean areItemStacksEqualNoNBT(ItemStack stackA, ItemStack stackB) {
+
+        if (stackB == null) {
+            return false;
+        }
+        return stackA.itemID == stackB.itemID
+                && (stackA.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true : stackB.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true
+                        : stackA.getHasSubtypes() == false ? true : stackB.getItemDamage() == stackA.getItemDamage());
+    }
+
+    public static boolean craftingEquivalence(ItemStack checked, ItemStack source, String oreDict) {
+
+        return areItemStacksEqualNoNBT(checked, source) ? true : oreDict == null ? false : getOreName(checked).equalsIgnoreCase(oreDict);
     }
 
 }

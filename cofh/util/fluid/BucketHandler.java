@@ -17,8 +17,6 @@ public class BucketHandler {
 
     public static BucketHandler instance = new BucketHandler();
 
-    private static boolean initialized;
-
     private static BiMap<Integer, Integer> buckets = HashBiMap.create();
 
     private BucketHandler() {
@@ -52,13 +50,18 @@ public class BucketHandler {
 
     public static ItemStack fillBucket(World world, MovingObjectPosition pos) {
 
-        int blockId = world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
-        int blockMeta = world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
+        return fillBucket(world, pos.blockX, pos.blockY, pos.blockZ);
+    }
+
+    public static ItemStack fillBucket(World world, int x, int y, int z) {
+
+        int blockId = world.getBlockId(x, y, z);
+        int blockMeta = world.getBlockMetadata(x, y, z);
 
         if (!buckets.containsKey(ItemHelper.getHashCode(blockId, blockMeta))) {
             return null;
         }
-        world.setBlock(pos.blockX, pos.blockY, pos.blockZ, 0);
+        world.setBlock(x, y, z, 0);
         int hashCode = buckets.get(ItemHelper.getHashCode(blockId, blockMeta));
         return new ItemStack(ItemHelper.getIDFromHashCode(hashCode), 1, ItemHelper.getMetaFromHashCode(hashCode));
     }
