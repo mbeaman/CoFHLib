@@ -1,7 +1,7 @@
 
 package cofh.api.tileentity;
 
-public interface IAccessControl {
+public interface ISecureTile {
 
     public static final int PUBLIC = 0;
     public static final int RESTRICTED = 1;
@@ -14,6 +14,8 @@ public interface IAccessControl {
     public boolean setOwnerName(String name);
 
     public String getOwnerName();
+
+    public boolean canPlayerAccess(String name);
 
     public boolean isPublic();
 
