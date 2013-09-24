@@ -1,4 +1,3 @@
-
 package cofh.gui.slot;
 
 import net.minecraft.inventory.IInventory;
@@ -8,35 +7,35 @@ import cofh.util.inventory.ComparableItemStack;
 
 public class SlotSpecificItem extends Slot {
 
-    final ComparableItemStack stack;
-    int slotStackLimit = -1;
+	final ComparableItemStack stack;
+	int slotStackLimit = -1;
 
-    public SlotSpecificItem(IInventory inventory, int x, int y, int z, ItemStack stack) {
+	public SlotSpecificItem(IInventory inventory, int x, int y, int z, ItemStack stack) {
 
-        super(inventory, x, y, z);
+		super(inventory, x, y, z);
 
-        this.stack = new ComparableItemStack(stack);
-    }
+		this.stack = new ComparableItemStack(stack);
+	}
 
-    @Override
-    public boolean isItemValid(ItemStack stack) {
+	@Override
+	public boolean isItemValid(ItemStack stack) {
 
-        return this.stack.isItemEqual(new ComparableItemStack(stack));
-    }
+		return this.stack.isItemEqual(new ComparableItemStack(stack));
+	}
 
-    public SlotSpecificItem setSlotStackLimit(int slotStackLimit) {
+	public SlotSpecificItem setSlotStackLimit(int slotStackLimit) {
 
-        this.slotStackLimit = slotStackLimit;
-        return this;
-    }
+		this.slotStackLimit = slotStackLimit;
+		return this;
+	}
 
-    @Override
-    public int getSlotStackLimit() {
+	@Override
+	public int getSlotStackLimit() {
 
-        if (slotStackLimit <= 0) {
-            return this.inventory.getInventoryStackLimit();
-        }
-        return slotStackLimit;
-    }
+		if (slotStackLimit <= 0) {
+			return this.inventory.getInventoryStackLimit();
+		}
+		return slotStackLimit;
+	}
 
 }

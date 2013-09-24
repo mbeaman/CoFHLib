@@ -1,11 +1,9 @@
-
 package cofh.render;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.Icon;
 
 /**
@@ -16,33 +14,26 @@ import net.minecraft.util.Icon;
  */
 public class IconRegistry {
 
-    public static Map<String, Icon> icons = new HashMap<String, Icon>();
+	public static Map<String, Icon> icons = new HashMap<String, Icon>();
 
-    public static void addIcon(String iconName, String iconLocation, IconRegister ir) {
+	public static void addIcon(String iconName, String iconLocation, IconRegister ir) {
 
-        icons.put(iconName, ir.registerIcon(iconLocation));
-    }
+		icons.put(iconName, ir.registerIcon(iconLocation));
+	}
 
-    public static void addIcon(String iconName, Icon icon) {
+	public static void addIcon(String iconName, Icon icon) {
 
-        icons.put(iconName, icon);
-    }
+		icons.put(iconName, icon);
+	}
 
-    public static void addCustomIcon(String iconName, String iconLocation, TextureMap ir) {
+	public static Icon getIcon(String iconName) {
 
-        TextureCustom icon = new TextureCustom(iconLocation);
-        ir.setTextureEntry(iconLocation, icon);
-        icons.put(iconName, icon);
-    }
+		return icons.get(iconName);
+	}
 
-    public static Icon getIcon(String iconName) {
+	public static Icon getIcon(String iconName, int iconOffset) {
 
-        return icons.get(iconName);
-    }
-
-    public static Icon getIcon(String iconName, int iconOffset) {
-
-        return icons.get(iconName + iconOffset);
-    }
+		return icons.get(iconName + iconOffset);
+	}
 
 }

@@ -1,4 +1,3 @@
-
 package cofh.api.core;
 
 /**
@@ -9,10 +8,10 @@ package cofh.api.core;
  */
 public interface IInitializer {
 
-    public boolean preInit();
+	public boolean preInit();
 
-    public boolean initialize();
+	public boolean initialize();
 
-    public boolean postInit();
+	public boolean postInit();
 
 }

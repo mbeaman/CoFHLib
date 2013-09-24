@@ -1,4 +1,3 @@
-
 package cofh.gui.slot;
 
 import net.minecraft.inventory.IInventory;
@@ -7,15 +6,15 @@ import net.minecraft.item.ItemStack;
 
 public class SlotOutput extends Slot {
 
-    public SlotOutput(IInventory inventory, int x, int y, int z) {
+	public SlotOutput(IInventory inventory, int x, int y, int z) {
 
-        super(inventory, x, y, z);
-    }
+		super(inventory, x, y, z);
+	}
 
-    @Override
-    public boolean isItemValid(ItemStack stack) {
+	@Override
+	public boolean isItemValid(ItemStack stack) {
 
-        return false;
-    }
+		return false;
+	}
 
 }

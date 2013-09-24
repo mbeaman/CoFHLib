@@ -1,4 +1,3 @@
-
 package cofh.world.feature;
 
 import java.util.HashSet;
@@ -10,33 +9,33 @@ import cofh.api.world.IFeatureGenerator;
 
 public abstract class FeatureBase implements IFeatureGenerator {
 
-    final String name;
-    final byte type;
-    final boolean regen;
-    final HashSet biomes = new HashSet<String>();
+	final String name;
+	final byte type;
+	final boolean regen;
+	final HashSet biomes = new HashSet<String>();
 
-    public FeatureBase(String name, boolean regen) {
+	public FeatureBase(String name, boolean regen) {
 
-        this.name = name;
-        this.type = 0;
-        this.regen = regen;
-    }
+		this.name = name;
+		this.type = 0;
+		this.regen = regen;
+	}
 
-    public FeatureBase(String name, WorldGenerator worldGen, byte type, boolean regen) {
+	public FeatureBase(String name, WorldGenerator worldGen, byte type, boolean regen) {
 
-        this.name = name;
-        this.type = type;
-        this.regen = regen;
-    }
+		this.name = name;
+		this.type = type;
+		this.regen = regen;
+	}
 
-    /* IFeatureGenerator */
-    @Override
-    public final String getFeatureName() {
+	/* IFeatureGenerator */
+	@Override
+	public final String getFeatureName() {
 
-        return name;
-    }
+		return name;
+	}
 
-    @Override
-    public abstract boolean generateFeature(Random random, int chunkX, int chunkZ, World world, boolean newGen);
+	@Override
+	public abstract boolean generateFeature(Random random, int chunkX, int chunkZ, World world, boolean newGen);
 
 }

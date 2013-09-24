@@ -1,49 +1,39 @@
-
 package cofh.util.inventory;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemStack;
 
 /**
  * This class is used to get recipes (IRecipe requires it...) with a Container.
  * 
- * @author Zeldo Kavira
+ * @author King Lemming
  * 
  */
 public final class InventoryCraftingFalse extends InventoryCrafting {
 
-    public InventoryCraftingFalse(int width, int height) {
+	private static final NullContainer nullContainer = new NullContainer();
 
-        super(null, width, height);
-    }
+	/* NULL INNER CLASS */
+	public static class NullContainer extends Container {
 
-    @Override
-    public ItemStack decrStackSize(int slot, int amount) {
+		@Override
+		public void onCraftMatrixChanged(IInventory inventory) {
 
-        if (this.stackList[slot] != null) {
-            ItemStack stack;
+		}
 
-            if (this.stackList[slot].stackSize <= amount) {
-                stack = this.stackList[slot];
-                this.stackList[slot] = null;
-                return stack;
-            } else {
-                stack = this.stackList[slot].splitStack(amount);
+		@Override
+		public boolean canInteractWith(EntityPlayer player) {
 
-                if (this.stackList[slot].stackSize == 0) {
-                    this.stackList[slot] = null;
-                }
-                return stack;
-            }
-        } else {
-            return null;
-        }
-    }
+			return false;
+		}
 
-    @Override
-    public void setInventorySlotContents(int slot, ItemStack stack) {
+	}
 
-        this.stackList[slot] = stack;
-    }
+	public InventoryCraftingFalse(int width, int height) {
+
+		super(nullContainer, width, height);
+	}
 
 }

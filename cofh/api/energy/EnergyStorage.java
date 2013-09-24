@@ -1,4 +1,3 @@
-
 package cofh.api.energy;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,98 +11,98 @@ import cofh.util.MathHelper;
  */
 public class EnergyStorage implements IEnergyStorage {
 
-    protected int energy;
-    protected int capacity;
-    protected int maxReceive;
-    protected int maxExtract;
+	protected int energy;
+	protected int capacity;
+	protected int maxReceive;
+	protected int maxExtract;
 
-    public EnergyStorage(int capacity) {
+	public EnergyStorage(int capacity) {
 
-        this(capacity, capacity, capacity);
-    }
+		this(capacity, capacity, capacity);
+	}
 
-    public EnergyStorage(int capacity, int maxTransfer) {
+	public EnergyStorage(int capacity, int maxTransfer) {
 
-        this(capacity, maxTransfer, maxTransfer);
-    }
+		this(capacity, maxTransfer, maxTransfer);
+	}
 
-    public EnergyStorage(int capacity, int maxReceive, int maxExtract) {
+	public EnergyStorage(int capacity, int maxReceive, int maxExtract) {
 
-        this.capacity = capacity;
-        this.maxReceive = maxReceive;
-        this.maxExtract = maxExtract;
-    }
+		this.capacity = capacity;
+		this.maxReceive = maxReceive;
+		this.maxExtract = maxExtract;
+	}
 
-    public EnergyStorage readFromNBT(NBTTagCompound nbt) {
+	public EnergyStorage readFromNBT(NBTTagCompound nbt) {
 
-        this.energy = nbt.getInteger("Energy");
-        return this;
-    }
+		this.energy = nbt.getInteger("Energy");
+		return this;
+	}
 
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 
-        nbt.setInteger("Energy", energy);
-        return nbt;
-    }
+		nbt.setInteger("Energy", energy);
+		return nbt;
+	}
 
-    public void setCapacity(int capacity) {
+	public void setCapacity(int capacity) {
 
-        this.capacity = capacity;
+		this.capacity = capacity;
 
-        if (energy > capacity) {
-            energy = capacity;
-        }
-    }
+		if (energy > capacity) {
+			energy = capacity;
+		}
+	}
 
-    public void setMaxTransfer(int maxTransfer) {
+	public void setMaxTransfer(int maxTransfer) {
 
-        setMaxReceive(maxTransfer);
-        setMaxExtract(maxTransfer);
-    }
+		setMaxReceive(maxTransfer);
+		setMaxExtract(maxTransfer);
+	}
 
-    public void setMaxReceive(int maxReceive) {
+	public void setMaxReceive(int maxReceive) {
 
-        this.maxReceive = maxReceive;
-    }
+		this.maxReceive = maxReceive;
+	}
 
-    public void setMaxExtract(int maxExtract) {
+	public void setMaxExtract(int maxExtract) {
 
-        this.maxExtract = maxExtract;
-    }
+		this.maxExtract = maxExtract;
+	}
 
-    /* IEnergyStorage */
-    @Override
-    public int receiveEnergy(int maxReceive, boolean doReceive) {
+	/* IEnergyStorage */
+	@Override
+	public int receiveEnergy(int maxReceive, boolean doReceive) {
 
-        int energyReceived = MathHelper.minI(capacity - energy, MathHelper.minI(this.maxReceive, maxReceive));
+		int energyReceived = MathHelper.minI(capacity - energy, MathHelper.minI(this.maxReceive, maxReceive));
 
-        if (doReceive) {
-            energy += energyReceived;
-        }
-        return energyReceived;
-    }
+		if (doReceive) {
+			energy += energyReceived;
+		}
+		return energyReceived;
+	}
 
-    @Override
-    public int extractEnergy(int maxExtract, boolean doExtract) {
+	@Override
+	public int extractEnergy(int maxExtract, boolean doExtract) {
 
-        int energyExtracted = MathHelper.minI(energy, MathHelper.minI(this.maxExtract, maxExtract));
+		int energyExtracted = MathHelper.minI(energy, MathHelper.minI(this.maxExtract, maxExtract));
 
-        if (doExtract) {
-            energy -= energyExtracted;
-        }
-        return energyExtracted;
-    }
+		if (doExtract) {
+			energy -= energyExtracted;
+		}
+		return energyExtracted;
+	}
 
-    @Override
-    public int getEnergyStored() {
+	@Override
+	public int getEnergyStored() {
 
-        return energy;
-    }
+		return energy;
+	}
 
-    @Override
-    public int getMaxEnergyStored() {
+	@Override
+	public int getMaxEnergyStored() {
 
-        return capacity;
-    }
+		return capacity;
+	}
 
 }
