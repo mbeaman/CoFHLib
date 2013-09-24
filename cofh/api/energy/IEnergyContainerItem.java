@@ -15,37 +15,37 @@ public interface IEnergyContainerItem {
 	/**
 	 * Adds energy to an item. Returns the quantity of energy that was accepted. This should always return 0 if the item cannot be externally charged.
 	 * 
-	 * @param theItem
+	 * @param container
 	 *            ItemStack to be charged.
 	 * @param maxReceive
 	 *            Maximum amount of energy to be sent into the item.
 	 * @param doReceive
 	 *            If false, the charge will only be simulated.
-	 * @return Amount of energy that was accepted by the item.
+	 * @return Amount of energy that was (or would have been, if simulated) accepted by the item.
 	 */
-	int receiveEnergy(ItemStack theItem, int maxReceive, boolean doReceive);
+	int receiveEnergy(ItemStack container, int maxReceive, boolean doReceive);
 
 	/**
 	 * Removes energy from an item. Returns the quantity of energy that was removed. This should always return 0 if the item cannot be externally discharged.
 	 * 
-	 * @param theItem
+	 * @param container
 	 *            ItemStack to be discharged.
 	 * @param maxExtract
-	 *            Maximum amount of energy to be removed from the item.
+	 *            Maximum amount of energy to be extracted from the item.
 	 * @param doExtract
 	 *            If false, the discharge will only be simulated.
-	 * @return Amount of energy that was removed from the item.
+	 * @return Amount of energy that was (or would have been, if simulated) extracted from the item.
 	 */
-	int extractEnergy(ItemStack theItem, int maxExtract, boolean doExtract);
+	int extractEnergy(ItemStack container, int maxExtract, boolean doExtract);
 
 	/**
 	 * Get the amount of energy currently stored in the item.
 	 */
-	int getEnergyStored(ItemStack theItem);
+	int getEnergyStored(ItemStack container);
 
 	/**
 	 * Get the max amount of energy that can be stored in the item.
 	 */
-	int getMaxEnergyStored(ItemStack theItem);
+	int getMaxEnergyStored(ItemStack container);
 
 }

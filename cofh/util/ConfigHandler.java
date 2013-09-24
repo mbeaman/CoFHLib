@@ -66,6 +66,16 @@ public class ConfigHandler {
 		modConfiguration.load();
 	}
 
+	public Configuration getConfiguration() {
+
+		return modConfiguration;
+	}
+
+	public String getVersion() {
+
+		return modVersion;
+	}
+
 	public void addBlockEntry(String name) {
 
 		addBlockEntry(name, 0);

@@ -26,16 +26,31 @@ public interface IEnergyHandler {
 	int receiveEnergy(ForgeDirection from, int maxReceive, boolean doReceive);
 
 	/**
+	 * Remove energy from an IEnergyHandler, internal distribution is left entirely to the IEnergyHandler.
+	 * 
+	 * @param from
+	 *            Orientation the energy is extracted to.
+	 * @param maxExtract
+	 *            Maximum amount of energy to extract.
+	 * @param doExtract
+	 *            If false, the discharge will only be simulated.
+	 * @return Amount of energy that was (or would have been, if simulated) extracted.
+	 */
+	int extractEnergy(ForgeDirection from, int maxExtract, boolean doExtract);
+
+	/**
 	 * Returns true if energy can be received from the given direction.
+	 * 
+	 * More formally, this should return true if energy is able to enter from the given direction.
 	 */
 	boolean canReceiveEnergy(ForgeDirection from);
 
 	/**
-	 * Returns true if the IEnergyHandler sends energy in the given direction.
+	 * Returns true if energy can be extracted from the given direction.
 	 * 
-	 * If energy is provided/produced on a given side should return true for that side.
+	 * More formally, this should return true if energy is able to leave from the given direction.
 	 */
-	boolean canSendEnergy(ForgeDirection from);
+	boolean canExtractEnergy(ForgeDirection from);
 
 	/**
 	 * Returns the amount of energy currently stored.

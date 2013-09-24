@@ -1,31 +1,32 @@
 package cofh.gui.element;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.IFluidTank;
 import cofh.gui.GuiBase;
 import cofh.render.RenderHelper;
 
 public class ElementFluidTank extends ElementBase {
 
-	protected FluidTank tank;
+	public static final ResourceLocation TEXTURE = new ResourceLocation(GuiBase.PATH_ELEMENTS + "FluidTank.png");
+	public static final int SCALE = 60;
+
+	protected IFluidTank tank;
 	protected int gaugeType;
 
-	public int scale = 60;
-
-	public ElementFluidTank(GuiBase gui, int posX, int posY, FluidTank tank) {
+	public ElementFluidTank(GuiBase gui, int posX, int posY, IFluidTank tank) {
 
 		super(gui, posX, posY);
 		this.tank = tank;
 
-		this.texture = new ResourceLocation(GuiBase.PATH_ELEMENTS + "FluidTank.png");
+		this.texture = TEXTURE;
 		this.texW = 64;
 		this.texH = 64;
 
 		this.sizeX = 16;
-		this.sizeY = scale;
+		this.sizeY = SCALE;
 	}
 
-	public ElementFluidTank(GuiBase gui, int posX, int posY, FluidTank tank, String texture) {
+	public ElementFluidTank(GuiBase gui, int posX, int posY, IFluidTank tank, String texture) {
 
 		super(gui, posX, posY);
 		this.tank = tank;
@@ -35,7 +36,7 @@ public class ElementFluidTank extends ElementBase {
 		this.texH = 64;
 
 		this.sizeX = 16;
-		this.sizeY = scale;
+		this.sizeY = SCALE;
 	}
 
 	public ElementFluidTank setGauge(int gaugeType) {
