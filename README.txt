@@ -1,7 +1,4 @@
-﻿Foreword
---------
-
-The intention of the CoFH Common Library is to establish a framework for modders
+﻿The intention of the CoFH Common Library is to establish a framework for modders
 to use to avoid "reinventing the wheel," as it were. This library contains a lot
 of basic functionality that quite a few mods end up adding at some point during
 their development.
