@@ -17,7 +17,7 @@ import cofh.render.RenderHelper;
 public abstract class TabBase extends ElementBase {
 
 	public boolean open;
-	public byte side = 1;
+	public int side = 1;
 
 	public int backgroundColor = 0xffffff;
 
@@ -32,18 +32,25 @@ public abstract class TabBase extends ElementBase {
 	public int maxHeight = 22;
 	public int currentHeight = minHeight;
 
-	public final ResourceLocation textureLeft = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Tab_Left.png");
-	public final ResourceLocation textureRight = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Tab_Right.png");
+	public static final ResourceLocation DEFAULT_TEXTURE_LEFT = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Tab_Left.png");
+	public static final ResourceLocation DEFAULT_TEXTURE_RIGHT = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Tab_Right.png");
 
 	public TabBase(GuiBase gui) {
 
 		super(gui, 0, 0);
+		texture = DEFAULT_TEXTURE_RIGHT;
 	}
 
 	public TabBase(GuiBase gui, int side) {
 
 		super(gui, 0, 0);
-		this.side = (byte) side;
+		this.side = side;
+
+		if (side == 0) {
+			texture = DEFAULT_TEXTURE_LEFT;
+		} else {
+			texture = DEFAULT_TEXTURE_RIGHT;
+		}
 	}
 
 	@Override
@@ -98,16 +105,14 @@ public abstract class TabBase extends ElementBase {
 
 		GL11.glColor4f(colorR, colorG, colorB, 1.0F);
 
-		if (side == 0) {
-			RenderHelper.bindTexture(textureLeft);
+		RenderHelper.bindTexture(texture);
 
+		if (side == 0) {
 			gui.drawTexturedModalRect(posX - currentWidth, posY + 4, 0, 256 - currentHeight + 4, 4, currentHeight - 4);
 			gui.drawTexturedModalRect(posX - currentWidth + 4, posY, 256 - currentWidth + 4, 0, currentWidth - 4, 4);
 			gui.drawTexturedModalRect(posX - currentWidth, posY, 0, 0, 4, 4);
 			gui.drawTexturedModalRect(posX - currentWidth + 4, posY + 4, 256 - currentWidth + 4, 256 - currentHeight + 4, currentWidth - 4, currentHeight - 4);
 		} else {
-			RenderHelper.bindTexture(textureRight);
-
 			gui.drawTexturedModalRect(posX, posY, 0, 256 - currentHeight, 4, currentHeight);
 			gui.drawTexturedModalRect(posX + 4, posY, 256 - currentWidth + 4, 0, currentWidth - 4, 4);
 			gui.drawTexturedModalRect(posX, posY, 0, 0, 4, 4);

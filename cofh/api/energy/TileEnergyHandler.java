@@ -42,13 +42,7 @@ public class TileEnergyHandler extends TileEntity implements IEnergyHandler {
 	}
 
 	@Override
-	public boolean canReceiveEnergy(ForgeDirection from) {
-
-		return true;
-	}
-
-	@Override
-	public boolean canExtractEnergy(ForgeDirection from) {
+	public boolean canInterface(ForgeDirection from) {
 
 		return true;
 	}

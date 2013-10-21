@@ -5,6 +5,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Crafting result slot where the result cannot be removed.
+ * 
+ * @author King Lemming
+ * 
+ */
 public class SlotCraftingLocked extends SlotCrafting {
 
 	public SlotCraftingLocked(EntityPlayer player, IInventory craftMatrix, IInventory inventory, int x, int y, int z) {

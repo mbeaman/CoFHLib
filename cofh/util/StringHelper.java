@@ -3,6 +3,7 @@ package cofh.util;
 import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.StatCollector;
 
 /**
  * Contains various helper functions to assist with String manipulation.
@@ -30,6 +31,11 @@ public final class StringHelper {
 	public static String titleCase(String input) {
 
 		return input.substring(0, 1).toUpperCase() + input.substring(1);
+	}
+
+	public static String localize(String key) {
+
+		return StatCollector.translateToLocal(key);
 	}
 
 }

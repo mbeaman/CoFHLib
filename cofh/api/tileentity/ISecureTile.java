@@ -2,24 +2,33 @@ package cofh.api.tileentity;
 
 public interface ISecureTile {
 
-	public static final int PUBLIC = 0;
-	public static final int RESTRICTED = 1;
-	public static final int PRIVATE = 2;
+	public static enum AccessMode {
+		PUBLIC, RESTRICTED, PRIVATE;
 
-	public boolean setAccess(int access);
+		public boolean isPublic() {
 
-	public int getAccess();
+			return this == PUBLIC;
+		}
+
+		public boolean isRestricted() {
+
+			return this == RESTRICTED;
+		}
+
+		public boolean isPrivate() {
+
+			return this == PRIVATE;
+		}
+	}
+
+	public boolean setAccess(AccessMode access);
+
+	public AccessMode getAccess();
 
 	public boolean setOwnerName(String name);
 
 	public String getOwnerName();
 
 	public boolean canPlayerAccess(String name);
-
-	public boolean isPublic();
-
-	public boolean isRestricted();
-
-	public boolean isPrivate();
 
 }

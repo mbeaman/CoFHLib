@@ -7,8 +7,8 @@ import cofh.render.RenderHelper;
 
 public class ElementFluidTank extends ElementBase {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation(GuiBase.PATH_ELEMENTS + "FluidTank.png");
-	public static final int SCALE = 60;
+	public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(GuiBase.PATH_ELEMENTS + "FluidTank.png");
+	public static final int DEFAULT_SCALE = 60;
 
 	protected IFluidTank tank;
 	protected int gaugeType;
@@ -18,12 +18,12 @@ public class ElementFluidTank extends ElementBase {
 		super(gui, posX, posY);
 		this.tank = tank;
 
-		this.texture = TEXTURE;
+		this.texture = DEFAULT_TEXTURE;
 		this.texW = 64;
 		this.texH = 64;
 
 		this.sizeX = 16;
-		this.sizeY = SCALE;
+		this.sizeY = DEFAULT_SCALE;
 	}
 
 	public ElementFluidTank(GuiBase gui, int posX, int posY, IFluidTank tank, String texture) {
@@ -36,7 +36,7 @@ public class ElementFluidTank extends ElementBase {
 		this.texH = 64;
 
 		this.sizeX = 16;
-		this.sizeY = SCALE;
+		this.sizeY = DEFAULT_SCALE;
 	}
 
 	public ElementFluidTank setGauge(int gaugeType) {

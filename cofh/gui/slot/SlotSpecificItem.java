@@ -5,6 +5,12 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import cofh.util.inventory.ComparableItemStack;
 
+/**
+ * Slot which is restricted to a specific item and maximum amount.
+ * 
+ * @author King Lemming
+ * 
+ */
 public class SlotSpecificItem extends Slot {
 
 	final ComparableItemStack stack;

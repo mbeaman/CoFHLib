@@ -26,8 +26,8 @@ import cofh.util.MathHelper;
  */
 public abstract class GuiBase extends GuiContainer {
 
-	public static final String PATH_ELEMENTS = "/assets/cofh/textures/gui/elements/";
-	public static final String PATH_ICONS = "/assets/cofh/textures/gui/icons/";
+	public static final String PATH_ELEMENTS = "cofh:textures/gui/elements/";
+	public static final String PATH_ICONS = "cofh:textures/gui/icons/";
 
 	protected int mouseX = 0;
 	protected int mouseY = 0;

@@ -70,24 +70,58 @@ public class EnergyStorage implements IEnergyStorage {
 		this.maxExtract = maxExtract;
 	}
 
+	/**
+	 * This function is included to allow for server -> client sync. Do not call this externally to the containing Tile Entity, as not all IEnergyHandlers are
+	 * guaranteed to have it.
+	 * 
+	 * @param energy
+	 */
+	public void setEnergyStored(int energy) {
+
+		this.energy = energy;
+
+		if (this.energy > capacity) {
+			this.energy = capacity;
+		} else if (this.energy < 0) {
+			this.energy = 0;
+		}
+	}
+
+	/**
+	 * This function is included to allow the containing tile to directly and efficiently modify the energy contained in the EnergyStorage. Do not rely on this
+	 * externally, as not all IEnergyHandlers are guaranteed to have it.
+	 * 
+	 * @param energy
+	 */
+	public void modifyEnergyStored(int energy) {
+
+		this.energy += energy;
+
+		if (this.energy > capacity) {
+			this.energy = capacity;
+		} else if (this.energy < 0) {
+			this.energy = 0;
+		}
+	}
+
 	/* IEnergyStorage */
 	@Override
-	public int receiveEnergy(int maxReceive, boolean doReceive) {
+	public int receiveEnergy(int maxReceive, boolean simulate) {
 
 		int energyReceived = MathHelper.minI(capacity - energy, MathHelper.minI(this.maxReceive, maxReceive));
 
-		if (doReceive) {
+		if (!simulate) {
 			energy += energyReceived;
 		}
 		return energyReceived;
 	}
 
 	@Override
-	public int extractEnergy(int maxExtract, boolean doExtract) {
+	public int extractEnergy(int maxExtract, boolean simulate) {
 
 		int energyExtracted = MathHelper.minI(energy, MathHelper.minI(this.maxExtract, maxExtract));
 
-		if (doExtract) {
+		if (!simulate) {
 			energy -= energyExtracted;
 		}
 		return energyExtracted;

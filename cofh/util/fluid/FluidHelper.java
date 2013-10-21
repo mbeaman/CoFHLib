@@ -1,8 +1,5 @@
 package cofh.util.fluid;
 
-import cofh.util.BlockHelper;
-import cofh.util.ItemHelper;
-import cofh.util.ServerHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -13,6 +10,9 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
+import cofh.util.BlockHelper;
+import cofh.util.ItemHelper;
+import cofh.util.ServerHelper;
 
 /**
  * Contains various helper functions to assist with {@link Fluid} and Fluid-related manipulation and interaction.
@@ -95,6 +95,28 @@ public class FluidHelper {
 	public static boolean isAdjacentFluidHandler(TileEntity tile, int from) {
 
 		return BlockHelper.getAdjacentTileEntity(tile, from) instanceof IFluidHandler;
+	}
+
+	public static boolean isFluidHandler(TileEntity tile) {
+
+		return tile instanceof IFluidHandler;
+	}
+
+	public static int getFluidLuminosity(Fluid theFluid) {
+
+		return theFluid == null ? 0 : theFluid.getLuminosity();
+	}
+
+	public static int getFluidLuminosity(int fluidId) {
+
+		return getFluidLuminosity(FluidRegistry.getFluid(fluidId));
+
+	}
+
+	public static int getFluidLuminosity(FluidStack fluidStack) {
+
+		return getFluidLuminosity(FluidRegistry.getFluid(fluidStack.fluidID));
+
 	}
 
 }

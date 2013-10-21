@@ -9,8 +9,8 @@ import cofh.util.MathHelper;
 
 public class ElementEnergyStored extends ElementBase {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Energy.png");
-	public static final int SCALE = 42;
+	public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Energy.png");
+	public static final int DEFAULT_SCALE = 42;
 
 	protected IEnergyStorage storage;
 
@@ -19,9 +19,9 @@ public class ElementEnergyStored extends ElementBase {
 		super(gui, posX, posY);
 		this.storage = storage;
 
-		this.texture = TEXTURE;
+		this.texture = DEFAULT_TEXTURE;
 		this.sizeX = 16;
-		this.sizeY = SCALE;
+		this.sizeY = DEFAULT_SCALE;
 
 		this.texW = 32;
 		this.texH = 64;
@@ -36,7 +36,7 @@ public class ElementEnergyStored extends ElementBase {
 		RenderHelper.bindTexture(texture);
 		drawTexturedModalRect(posX, posY, 0, 0, sizeX, sizeY);
 		int qty = getScaled();
-		drawTexturedModalRect(posX, posY + SCALE - qty, 16, SCALE - qty, sizeX, qty);
+		drawTexturedModalRect(posX, posY + DEFAULT_SCALE - qty, 16, DEFAULT_SCALE - qty, sizeX, qty);
 	}
 
 	@Override

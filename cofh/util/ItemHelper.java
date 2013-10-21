@@ -232,4 +232,10 @@ public final class ItemHelper {
 		return areItemStacksEqualNoNBT(checked, source) ? true : oreDict == null ? false : getOreName(checked).equalsIgnoreCase(oreDict);
 	}
 
+	public static String getItemNBTString(ItemStack theItem, String nbtKey, String invalidReturn) {
+
+		return theItem.stackTagCompound != null ? theItem.stackTagCompound.hasKey(nbtKey) ? theItem.stackTagCompound.getString(nbtKey) : invalidReturn
+				: invalidReturn;
+	}
+
 }

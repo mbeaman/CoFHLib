@@ -19,11 +19,11 @@ public interface IEnergyHandler {
 	 *            Orientation the energy is received from.
 	 * @param maxReceive
 	 *            Maximum amount of energy to received.
-	 * @param doReceive
-	 *            If false, the charge will only be simulated.
+	 * @param simulate
+	 *            If true, the charge will only be simulated.
 	 * @return Amount of energy that was (or would have been, if simulated) received.
 	 */
-	int receiveEnergy(ForgeDirection from, int maxReceive, boolean doReceive);
+	int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate);
 
 	/**
 	 * Remove energy from an IEnergyHandler, internal distribution is left entirely to the IEnergyHandler.
@@ -32,25 +32,16 @@ public interface IEnergyHandler {
 	 *            Orientation the energy is extracted to.
 	 * @param maxExtract
 	 *            Maximum amount of energy to extract.
-	 * @param doExtract
-	 *            If false, the discharge will only be simulated.
+	 * @param simulate
+	 *            If true, the discharge will only be simulated.
 	 * @return Amount of energy that was (or would have been, if simulated) extracted.
 	 */
-	int extractEnergy(ForgeDirection from, int maxExtract, boolean doExtract);
+	int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate);
 
 	/**
-	 * Returns true if energy can be received from the given direction.
-	 * 
-	 * More formally, this should return true if energy is able to enter from the given direction.
+	 * Returns true if the Handler functions on a given side - if a Tile Entity can receive and/or send energy from a given side, this should return true.
 	 */
-	boolean canReceiveEnergy(ForgeDirection from);
-
-	/**
-	 * Returns true if energy can be extracted from the given direction.
-	 * 
-	 * More formally, this should return true if energy is able to leave from the given direction.
-	 */
-	boolean canExtractEnergy(ForgeDirection from);
+	boolean canInterface(ForgeDirection from);
 
 	/**
 	 * Returns the amount of energy currently stored.

@@ -5,6 +5,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Slot which copies an ItemStack when clicked on, does not decrement the ItemStack on the cursor.
+ * 
+ * @author King Lemming
+ * 
+ */
 public class SlotFalseCopy extends Slot {
 
 	public int slotIndex = 0;
