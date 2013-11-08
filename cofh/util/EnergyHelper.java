@@ -44,6 +44,11 @@ public class EnergyHelper {
 		return 0;
 	}
 
+	public static boolean isEnergyContainerItem(ItemStack container) {
+
+		return container != null && container.getItem() instanceof IEnergyContainerItem;
+	}
+
 	public static boolean isAdjacentEnergyHandler(TileEntity tile, int from) {
 
 		return BlockHelper.getAdjacentTileEntity(tile, from) instanceof IEnergyHandler;
@@ -65,11 +70,6 @@ public class EnergyHelper {
 			return ((IEnergyHandler) tile).canInterface(from);
 		}
 		return false;
-	}
-
-	public static boolean isEnergyContainerItem(ItemStack container) {
-
-		return container.getItem() instanceof IEnergyContainerItem;
 	}
 
 }

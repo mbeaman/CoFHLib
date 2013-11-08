@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -28,6 +29,7 @@ public final class BlockHelper {
 
 	public static byte[] rotateType = new byte[4096];
 	public static final int[][] SIDE_COORD_MOD = { { 0, -1, 0 }, { 0, 1, 0 }, { 0, 0, -1 }, { 0, 0, 1 }, { -1, 0, 0 }, { 1, 0, 0 } };
+	public static float[][] SIDE_COORD_AABB = { { 1, -2, 1 }, { 1, 2, 1 }, { 1, 1, 1 }, { 1, 1, 2 }, { 1, 1, 1 }, { 2, 1, 1 } };
 	public static final int[] SIDE_LEFT = { 4, 5, 5, 4, 2, 3 };
 	public static final int[] SIDE_RIGHT = { 5, 4, 4, 5, 3, 2 };
 	public static final int[] SIDE_OPPOSITE = { 1, 0, 3, 2, 5, 4 };
@@ -128,6 +130,12 @@ public final class BlockHelper {
 	public static int[] getAdjacentCoordinatesForSide(TileEntity tile, int side) {
 
 		return new int[] { tile.xCoord + SIDE_COORD_MOD[side][0], tile.yCoord + SIDE_COORD_MOD[side][1], tile.zCoord + SIDE_COORD_MOD[side][2] };
+	}
+
+	public static AxisAlignedBB getAdjacentAABBForSide(int x, int y, int z, int side) {
+
+		return AxisAlignedBB.getAABBPool().getAABB(x + SIDE_COORD_MOD[side][0], y + SIDE_COORD_MOD[side][1], z + SIDE_COORD_MOD[side][2],
+				x + SIDE_COORD_AABB[side][0], y + SIDE_COORD_AABB[side][1], z + SIDE_COORD_AABB[side][2]);
 	}
 
 	public static int getLeftSide(int side) {
@@ -285,13 +293,18 @@ public final class BlockHelper {
 		return bId < 0 || bId >= Block.blocksList.length ? null : Block.blocksList[bId] != null;
 	}
 
-	public static List<ItemStack> breakBlock(World worldObj, int x, int y, int z, int blockId, int fortune, boolean doBreak) {
+	public static List<ItemStack> breakBlock(World worldObj, int x, int y, int z, int blockId, int fortune, boolean doBreak, boolean silkTouch) {
 
 		if (Block.blocksList[blockId].getBlockHardness(worldObj, x, y, z) == -1) {
 			return new LinkedList<ItemStack>();
 		}
 		int meta = worldObj.getBlockMetadata(x, y, z);
-		List<ItemStack> stacks = Block.blocksList[blockId].getBlockDropped(worldObj, x, y, z, meta, fortune);
+		List<ItemStack> stacks = null;
+		if (silkTouch && Block.blocksList[blockId].canSilkHarvest(worldObj, null, x, y, z, meta)) {
+			ItemStack itemstack = createStackedBlock(Block.blocksList[blockId], meta);
+		} else {
+			stacks = Block.blocksList[blockId].getBlockDropped(worldObj, x, y, z, meta, fortune);
+		}
 
 		if (!doBreak) {
 			return stacks;
@@ -313,4 +326,12 @@ public final class BlockHelper {
 		return stacks;
 	}
 
+	public static ItemStack createStackedBlock(Block theBlock, int meta) {
+
+		if (theBlock.blockID >= 0 && theBlock.blockID < Item.itemsList.length && Item.itemsList[theBlock.blockID].getHasSubtypes()) {
+			return new ItemStack(theBlock.blockID, 1, meta);
+		}
+
+		return new ItemStack(theBlock.blockID, 1, 0);
+	}
 }

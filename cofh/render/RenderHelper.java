@@ -2,6 +2,7 @@ package cofh.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -72,6 +73,33 @@ public final class RenderHelper {
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
 		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, texture);
 
+		tessellator.draw();
+	}
+
+	public static void renderItemIn2D(Icon icon) {
+
+		ItemRenderer.renderItemIn2D(Tessellator.instance, icon.getMaxU(), icon.getMinV(), icon.getMinU(), icon.getMaxV(), icon.getIconWidth(),
+				icon.getIconHeight(), 0.0625F);
+	}
+
+	public static void renderIcon(Icon icon, double z) {
+
+		Tessellator.instance.startDrawingQuads();
+		Tessellator.instance.addVertexWithUV(0, 16, z, icon.getMinU(), icon.getMaxV());
+		Tessellator.instance.addVertexWithUV(16, 16, z, icon.getMaxU(), icon.getMaxV());
+		Tessellator.instance.addVertexWithUV(16, 0, z, icon.getMaxU(), icon.getMinV());
+		Tessellator.instance.addVertexWithUV(0, 0, z, icon.getMinU(), icon.getMinV());
+		Tessellator.instance.draw();
+	}
+
+	public static void renderIcon(int x, int y, int z, Icon icon, int width, int height) {
+
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(x, y + height, z, icon.getMinU(), icon.getMaxV());
+		tessellator.addVertexWithUV(x + width, y + height, z, icon.getMaxU(), icon.getMaxV());
+		tessellator.addVertexWithUV(x + width, y, z, icon.getMaxU(), icon.getMinV());
+		tessellator.addVertexWithUV(x, y, z, icon.getMinU(), icon.getMinV());
 		tessellator.draw();
 	}
 

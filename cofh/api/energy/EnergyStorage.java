@@ -70,6 +70,16 @@ public class EnergyStorage implements IEnergyStorage {
 		this.maxExtract = maxExtract;
 	}
 
+	public int getMaxReceive() {
+
+		return maxReceive;
+	}
+
+	public int getMaxExtract() {
+
+		return maxExtract;
+	}
+
 	/**
 	 * This function is included to allow for server -> client sync. Do not call this externally to the containing Tile Entity, as not all IEnergyHandlers are
 	 * guaranteed to have it.

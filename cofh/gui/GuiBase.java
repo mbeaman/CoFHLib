@@ -91,6 +91,11 @@ public abstract class GuiBase extends GuiContainer {
 			}
 			tab.toggleOpen();
 		}
+
+		ElementBase element = getElementAtPosition(mouseX, mouseY);
+		if (element != null) {
+			element.handleMouseClicked(mouseX, mouseY, mouseButton);
+		}
 	}
 
 	@Override
@@ -152,6 +157,7 @@ public abstract class GuiBase extends GuiContainer {
 			drawTooltip(element.getTooltip());
 			return;
 		}
+
 	}
 
 	/* ELEMENTS */
@@ -217,6 +223,10 @@ public abstract class GuiBase extends GuiContainer {
 	}
 
 	protected void updateElements() {
+
+	}
+
+	public void handleElementButtonClick(String buttonName, int mouseButton) {
 
 	}
 
@@ -346,6 +356,16 @@ public abstract class GuiBase extends GuiContainer {
 	public int getGuiTop() {
 
 		return guiTop;
+	}
+
+	public int getMouseX() {
+
+		return mouseX;
+	}
+
+	public int getMouseY() {
+
+		return mouseY;
 	}
 
 }

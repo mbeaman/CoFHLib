@@ -20,7 +20,7 @@ public interface IEnergyHandler {
 	 * @param maxReceive
 	 *            Maximum amount of energy to received.
 	 * @param simulate
-	 *            If true, the charge will only be simulated.
+	 *            If TRUE, the charge will only be simulated.
 	 * @return Amount of energy that was (or would have been, if simulated) received.
 	 */
 	int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate);
@@ -33,7 +33,7 @@ public interface IEnergyHandler {
 	 * @param maxExtract
 	 *            Maximum amount of energy to extract.
 	 * @param simulate
-	 *            If true, the discharge will only be simulated.
+	 *            If TRUE, the discharge will only be simulated.
 	 * @return Amount of energy that was (or would have been, if simulated) extracted.
 	 */
 	int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate);

@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -236,6 +237,42 @@ public final class ItemHelper {
 
 		return theItem.stackTagCompound != null ? theItem.stackTagCompound.hasKey(nbtKey) ? theItem.stackTagCompound.getString(nbtKey) : invalidReturn
 				: invalidReturn;
+	}
+
+	public static Item getItemFromStack(ItemStack theStack) {
+
+		return theStack == null ? null : theStack.getItem();
+	}
+
+	public static boolean itemsEqualWithMetadata(ItemStack Item1, ItemStack Item2) {
+
+		return Item1.itemID == Item2.itemID && (Item1.getItemDamage() == Item2.getItemDamage() || Item1.getHasSubtypes() == false);
+	}
+
+	public static boolean itemsEqualWithoutMetadata(ItemStack Item1, ItemStack Item2) {
+
+		return Item1.itemID == Item2.itemID;
+	}
+
+	public static boolean itemsEqualWithMetadata(ItemStack Item1, ItemStack Item2, boolean checkNBT) {
+
+		return Item1.itemID == Item2.itemID && Item1.getItemDamage() == Item2.getItemDamage()
+				&& (!checkNBT || NBTsMatch(Item1.stackTagCompound, Item2.stackTagCompound));
+	}
+
+	public static boolean itemsEqualWithoutMetadata(ItemStack Item1, ItemStack Item2, boolean checkNBT) {
+
+		return Item1.itemID == Item2.itemID && (!checkNBT || NBTsMatch(Item1.stackTagCompound, Item2.stackTagCompound));
+	}
+
+	public static boolean OreIDMatches(ItemStack Item1, ItemStack Item2) {
+
+		return OreDictionary.getOreID(Item1) >= 0 && OreDictionary.getOreID(Item1) == OreDictionary.getOreID(Item2);
+	}
+
+	public static boolean NBTsMatch(NBTTagCompound Item1, NBTTagCompound Item2) {
+
+		return Item1 == null ? Item2 == null ? true : false : Item2 == null ? false : Item1.equals(Item2);
 	}
 
 }

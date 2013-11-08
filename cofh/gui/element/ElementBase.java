@@ -29,6 +29,8 @@ public abstract class ElementBase {
 	public int texW = 256;
 	public int texH = 256;
 
+	protected String name;
+
 	protected boolean visible = true;
 
 	public ElementBase(GuiBase gui, int posX, int posY) {
@@ -63,6 +65,12 @@ public abstract class ElementBase {
 	public ElementBase setVisible(boolean visible) {
 
 		this.visible = visible;
+		return this;
+	}
+
+	public ElementBase setName(String name) {
+
+		this.name = name;
 		return this;
 	}
 
@@ -105,6 +113,11 @@ public abstract class ElementBase {
 	public void drawTexturedModalRect(int x, int y, int u, int v, int width, int height) {
 
 		gui.drawSizedTexturedModalRect(x, y, u, v, width, height, texW, texH);
+	}
+
+	public String getName() {
+
+		return name;
 	}
 
 }

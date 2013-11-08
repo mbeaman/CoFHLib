@@ -19,6 +19,16 @@ public interface ISecureTile {
 
 			return this == PRIVATE;
 		}
+
+		public static AccessMode stepForward(AccessMode curAccess) {
+
+			return curAccess == AccessMode.PUBLIC ? AccessMode.RESTRICTED : curAccess == AccessMode.PRIVATE ? AccessMode.PUBLIC : AccessMode.PRIVATE;
+		}
+
+		public static AccessMode stepBackward(AccessMode curAccess) {
+
+			return curAccess == AccessMode.PUBLIC ? AccessMode.PRIVATE : curAccess == AccessMode.PRIVATE ? AccessMode.RESTRICTED : AccessMode.PUBLIC;
+		}
 	}
 
 	public boolean setAccess(AccessMode access);

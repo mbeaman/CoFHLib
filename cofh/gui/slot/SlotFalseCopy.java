@@ -15,10 +15,10 @@ public class SlotFalseCopy extends Slot {
 
 	public int slotIndex = 0;
 
-	public SlotFalseCopy(IInventory inventory, int x, int y, int z) {
+	public SlotFalseCopy(IInventory inventory, int slot, int x, int z) {
 
-		super(inventory, x, y, z);
-		slotIndex = x;
+		super(inventory, slot, x, z);
+		slotIndex = slot;
 	}
 
 	@Override

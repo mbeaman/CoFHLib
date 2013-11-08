@@ -19,8 +19,8 @@ public interface IEnergyContainerItem {
 	 *            ItemStack to be charged.
 	 * @param maxReceive
 	 *            Maximum amount of energy to be sent into the item.
-	 * @param doReceive
-	 *            If false, the charge will only be simulated.
+	 * @param simulate
+	 *            If TRUE, the charge will only be simulated.
 	 * @return Amount of energy that was (or would have been, if simulated) received by the item.
 	 */
 	int receiveEnergy(ItemStack container, int maxReceive, boolean simulate);
@@ -32,8 +32,8 @@ public interface IEnergyContainerItem {
 	 *            ItemStack to be discharged.
 	 * @param maxExtract
 	 *            Maximum amount of energy to be extracted from the item.
-	 * @param doExtract
-	 *            If false, the discharge will only be simulated.
+	 * @param simulate
+	 *            If TRUE, the discharge will only be simulated.
 	 * @return Amount of energy that was (or would have been, if simulated) extracted from the item.
 	 */
 	int extractEnergy(ItemStack container, int maxExtract, boolean simulate);

@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 import cofh.util.BlockHelper;
 import cofh.util.ItemHelper;
@@ -90,6 +91,11 @@ public class FluidHelper {
 			return ((IFluidHandler) handler).fill(ForgeDirection.VALID_DIRECTIONS[from].getOpposite(), fluid, doFill);
 		}
 		return 0;
+	}
+
+	public static boolean isFluidContainerItem(ItemStack container) {
+
+		return container != null && container.getItem() instanceof IFluidContainerItem;
 	}
 
 	public static boolean isAdjacentFluidHandler(TileEntity tile, int from) {

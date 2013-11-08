@@ -3,7 +3,6 @@ package cofh.gui.element;
 import net.minecraft.util.ResourceLocation;
 import cofh.api.energy.IEnergyStorage;
 import cofh.gui.GuiBase;
-import cofh.gui.GuiBaseAdv;
 import cofh.render.RenderHelper;
 import cofh.util.MathHelper;
 
@@ -14,7 +13,7 @@ public class ElementEnergyStored extends ElementBase {
 
 	protected IEnergyStorage storage;
 
-	public ElementEnergyStored(GuiBaseAdv gui, int posX, int posY, IEnergyStorage storage) {
+	public ElementEnergyStored(GuiBase gui, int posX, int posY, IEnergyStorage storage) {
 
 		super(gui, posX, posY);
 		this.storage = storage;
@@ -42,11 +41,17 @@ public class ElementEnergyStored extends ElementBase {
 	@Override
 	public String getTooltip() {
 
+		if (storage.getMaxEnergyStored() < 0) {
+			return "Infinite RF";
+		}
 		return "" + storage.getEnergyStored() + " / " + storage.getMaxEnergyStored() + " RF";
 	}
 
 	int getScaled() {
 
+		if (storage.getMaxEnergyStored() < 0) {
+			return sizeY;
+		}
 		return MathHelper.round(storage.getEnergyStored() * sizeY / storage.getMaxEnergyStored());
 	}
 

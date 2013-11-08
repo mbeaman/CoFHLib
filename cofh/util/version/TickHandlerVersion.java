@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 import net.minecraft.entity.player.EntityPlayer;
-import cofh.util.ColorHelper;
+import cofh.util.StringHelper;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -68,9 +68,9 @@ public class TickHandlerVersion implements IScheduledTickHandler {
 
 		if (anInfo.isNewVersionAvailable()) {
 			EntityPlayer player = (EntityPlayer) tickData[0];
-			player.addChatMessage(ColorHelper.YELLOW + "[" + anInfo.modName + "] " + ColorHelper.WHITE + "A new version is available: "
-					+ ColorHelper.LIGHT_BLUE + anInfo.getLatestVersion());
-			player.addChatMessage(ColorHelper.LIGHT_GRAY + anInfo.getVersionDescription());
+			player.addChatMessage(StringHelper.YELLOW + "[" + anInfo.modName + "] " + StringHelper.WHITE + "A new version is available: "
+					+ StringHelper.LIGHT_BLUE + anInfo.getLatestVersion());
+			player.addChatMessage(StringHelper.LIGHT_GRAY + anInfo.getVersionDescription());
 		}
 		modIndex++;
 	}
