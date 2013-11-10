@@ -80,4 +80,7 @@ public final class StringHelper {
 	public static final String ITALIC = (char) 167 + "o";
 	public static final String END = (char) 167 + "r";
 
+	public static final String ShiftForInfo = StringHelper.GRAY + "Hold " + StringHelper.BRIGHT_GREEN + StringHelper.ITALIC + "Shift" + StringHelper.END
+			+ StringHelper.GRAY + " for Details";
+
 }

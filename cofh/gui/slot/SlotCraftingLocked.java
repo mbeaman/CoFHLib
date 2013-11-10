@@ -13,9 +13,9 @@ import net.minecraft.item.ItemStack;
  */
 public class SlotCraftingLocked extends SlotCrafting {
 
-	public SlotCraftingLocked(EntityPlayer player, IInventory craftMatrix, IInventory inventory, int x, int y, int z) {
+	public SlotCraftingLocked(EntityPlayer player, IInventory craftMatrix, IInventory inventory, int slotIndex, int x, int y) {
 
-		super(player, craftMatrix, inventory, x, y, z);
+		super(player, craftMatrix, inventory, slotIndex, x, y);
 	}
 
 	@Override

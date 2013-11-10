@@ -16,9 +16,9 @@ public class SlotSpecificItem extends Slot {
 	final ComparableItemStack stack;
 	int slotStackLimit = -1;
 
-	public SlotSpecificItem(IInventory inventory, int x, int y, int z, ItemStack stack) {
+	public SlotSpecificItem(IInventory inventory, int slotIndex, int x, int y, ItemStack stack) {
 
-		super(inventory, x, y, z);
+		super(inventory, slotIndex, x, y);
 
 		this.stack = new ComparableItemStack(stack);
 	}

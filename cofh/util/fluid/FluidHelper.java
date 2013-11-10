@@ -1,5 +1,6 @@
 package cofh.util.fluid;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -9,6 +10,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 import cofh.util.BlockHelper;
@@ -123,6 +125,30 @@ public class FluidHelper {
 
 		return getFluidLuminosity(FluidRegistry.getFluid(fluidStack.fluidID));
 
+	}
+
+	public static FluidStack getLiquidFromCoords(World worldObj, int x, int y, int z) {
+
+		int BlockID = worldObj.getBlockId(x, y, z);
+		int meta = worldObj.getBlockMetadata(x, y, z);
+
+		if (BlockID == 9 || BlockID == 8) {
+			if (meta == 0) {
+				return new FluidStack(FluidRegistry.WATER, 1000);
+			} else {
+				return null;
+			}
+		} else if (BlockID == 10) {
+			if (meta == 0) {
+				return new FluidStack(FluidRegistry.LAVA, 1000);
+			} else {
+				return null;
+			}
+		} else if (Block.blocksList[BlockID] != null && Block.blocksList[BlockID] instanceof IFluidBlock) {
+			IFluidBlock theBlock = (IFluidBlock) Block.blocksList[BlockID];
+			return theBlock.drain(worldObj, x, y, z, true);
+		}
+		return null;
 	}
 
 }

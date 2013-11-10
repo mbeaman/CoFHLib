@@ -23,6 +23,14 @@ public final class ItemHelper {
 
 	}
 
+	public static ItemStack cloneStack(ItemStack stack, int stackSize) {
+
+		ItemStack retStack = stack.copy();
+		retStack.stackSize = stackSize;
+
+		return retStack;
+	}
+
 	public static ItemStack consumeItem(ItemStack stack) {
 
 		if (stack.stackSize == 1) {
@@ -228,7 +236,7 @@ public final class ItemHelper {
 						.getHasSubtypes() == false ? true : stackB.getItemDamage() == stackA.getItemDamage());
 	}
 
-	public static boolean craftingEquivalence(ItemStack checked, ItemStack source, String oreDict) {
+	public static boolean craftingEquivalant(ItemStack checked, ItemStack source, String oreDict) {
 
 		return areItemStacksEqualNoNBT(checked, source) ? true : oreDict == null ? false : getOreName(checked).equalsIgnoreCase(oreDict);
 	}
