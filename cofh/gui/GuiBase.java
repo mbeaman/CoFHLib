@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -14,6 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import cofh.gui.element.ElementBase;
 import cofh.gui.element.TabBase;
+import cofh.gui.slot.SlotFalseCopy;
 import cofh.render.IconRegistry;
 import cofh.render.RenderHelper;
 import cofh.util.MathHelper;
@@ -31,6 +34,8 @@ public abstract class GuiBase extends GuiContainer {
 
 	protected int mouseX = 0;
 	protected int mouseY = 0;
+
+	protected int lastIndex = -1;
 
 	protected String name;
 	protected ResourceLocation texture;
@@ -91,10 +96,27 @@ public abstract class GuiBase extends GuiContainer {
 			}
 			tab.toggleOpen();
 		}
-
 		ElementBase element = getElementAtPosition(mouseX, mouseY);
+
 		if (element != null) {
 			element.handleMouseClicked(mouseX, mouseY, mouseButton);
+		}
+	}
+
+	@Override
+	protected void mouseClickMove(int mX, int mY, int lastClick, long timeSinceClick) {
+
+		Slot slot = this.getSlotAtPosition(mX, mY);
+		ItemStack itemstack = this.mc.thePlayer.inventory.getItemStack();
+
+		if (this.field_94076_q && slot != null && itemstack != null && slot instanceof SlotFalseCopy) {
+			if (lastIndex != slot.slotNumber) {
+				lastIndex = slot.slotNumber;
+				this.handleMouseClick(slot, slot.slotNumber, 0, 0);
+			}
+		} else {
+			lastIndex = -1;
+			super.mouseClickMove(mX, mY, lastClick, timeSinceClick);
 		}
 	}
 

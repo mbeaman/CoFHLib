@@ -24,19 +24,23 @@ public class SlotFalseCopy extends Slot {
 	@Override
 	public boolean canTakeStack(EntityPlayer player) {
 
-		inventory.setInventorySlotContents(this.slotIndex, null);
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
 
-		if (inventory.getStackInSlot(this.slotIndex) == null) {
-			ItemStack phantomStack = stack.copy();
-			phantomStack.stackSize = 1;
-			inventory.setInventorySlotContents(this.slotIndex, phantomStack);
+		return true;
+	}
+
+	@Override
+	public void putStack(ItemStack par1ItemStack) {
+
+		if (par1ItemStack != null) {
+			par1ItemStack.stackSize = 1;
 		}
-		return false;
+		this.inventory.setInventorySlotContents(this.slotIndex, par1ItemStack);
+		this.onSlotChanged();
 	}
 
 }

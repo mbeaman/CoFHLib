@@ -110,21 +110,19 @@ public class FluidHelper {
 		return tile instanceof IFluidHandler;
 	}
 
-	public static int getFluidLuminosity(Fluid theFluid) {
+	public static int getFluidLuminosity(Fluid fluid) {
 
-		return theFluid == null ? 0 : theFluid.getLuminosity();
+		return fluid == null ? 0 : fluid.getLuminosity();
 	}
 
 	public static int getFluidLuminosity(int fluidId) {
 
 		return getFluidLuminosity(FluidRegistry.getFluid(fluidId));
-
 	}
 
-	public static int getFluidLuminosity(FluidStack fluidStack) {
+	public static int getFluidLuminosity(FluidStack fluid) {
 
-		return getFluidLuminosity(FluidRegistry.getFluid(fluidStack.fluidID));
-
+		return fluid == null ? 0 : getFluidLuminosity(FluidRegistry.getFluid(fluid.fluidID));
 	}
 
 	public static FluidStack getLiquidFromCoords(World worldObj, int x, int y, int z) {

@@ -4,12 +4,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -34,8 +36,8 @@ public final class BlockHelper {
 	public static final int[] SIDE_LEFT = { 4, 5, 5, 4, 2, 3 };
 	public static final int[] SIDE_RIGHT = { 5, 4, 4, 5, 3, 2 };
 	public static final int[] SIDE_OPPOSITE = { 1, 0, 3, 2, 5, 4 };
-	public static final int[] SIDE_ABOVE = { 2, 3, 1, 1, 1, 1 };
-	public static final int[] SIDE_BELOW = { 3, 2, 0, 0, 0, 0 };
+	public static final int[] SIDE_ABOVE = { 3, 2, 1, 1, 1, 1 };
+	public static final int[] SIDE_BELOW = { 2, 3, 0, 0, 0, 0 };
 
 	public static final class RotationType {
 
@@ -100,6 +102,23 @@ public final class BlockHelper {
 			return mouseOver.sideHit;
 		}
 		return 0;
+	}
+
+	public static int determineXZPlaceFacing(EntityLivingBase living) {
+
+		int quadrant = MathHelper.floor_double(living.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+
+		switch (quadrant) {
+		case 0:
+			return 2;
+		case 1:
+			return 5;
+		case 2:
+			return 3;
+		case 3:
+			return 4;
+		}
+		return 3;
 	}
 
 	public static TileEntity getAdjacentTileEntity(World world, int x, int y, int z, ForgeDirection dir) {
@@ -346,4 +365,5 @@ public final class BlockHelper {
 					: false : false;
 		}
 	}
+
 }

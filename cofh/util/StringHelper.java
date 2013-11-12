@@ -80,7 +80,7 @@ public final class StringHelper {
 	public static final String ITALIC = (char) 167 + "o";
 	public static final String END = (char) 167 + "r";
 
-	public static final String ShiftForInfo = StringHelper.GRAY + "Hold " + StringHelper.BRIGHT_GREEN + StringHelper.ITALIC + "Shift" + StringHelper.END
-			+ StringHelper.GRAY + " for Details";
+	public static String shiftForInfo = StringHelper.GRAY + localize("message.cofh.holdShift1") + " " + StringHelper.BRIGHT_GREEN + StringHelper.ITALIC
+			+ localize("message.cofh.holdShift2") + " " + StringHelper.END + StringHelper.GRAY + localize("message.cofh.holdShift3");
 
 }
