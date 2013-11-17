@@ -14,8 +14,8 @@ import cofh.api.world.WeightedRandomBlock;
 
 public class WorldGenMinableCluster extends WorldGenerator {
 
-	private List<WeightedRandomBlock> cluster;
-	private int genClusterSize;
+	private final List<WeightedRandomBlock> cluster;
+	private final int genClusterSize;
 	private int genBlockID = Block.stone.blockID;
 
 	public WorldGenMinableCluster(ItemStack ore, int clusterSize) {
@@ -96,10 +96,9 @@ public class WorldGenMinableCluster extends WorldGenerator {
 						if (d12 * d12 + d13 * d13 < 1.0D) {
 							for (int i3 = k1; i3 <= j2; ++i3) {
 								double d14 = (i3 + 0.5D - d8) / (d10 / 2.0D);
-
 								Block block = Block.blocksList[world.getBlockId(k2, l2, i3)];
-								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && block != null && block.isGenMineableReplaceable(world, k2, l2, i3, genBlockID)) {
 
+								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && block != null && block.isGenMineableReplaceable(world, k2, l2, i3, genBlockID)) {
 									WeightedRandomBlock ore = (WeightedRandomBlock) WeightedRandom.getRandomItem(world.rand, cluster);
 									world.setBlock(k2, l2, i3, ore.blockId, ore.metadata, 1);
 								}
