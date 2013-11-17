@@ -3,11 +3,12 @@ package cofh.gui.element;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.IFluidTank;
 import cofh.gui.GuiBase;
+import cofh.gui.GuiProps;
 import cofh.render.RenderHelper;
 
 public class ElementFluidTank extends ElementBase {
 
-	public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(GuiBase.PATH_ELEMENTS + "FluidTank.png");
+	public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(GuiProps.PATH_ELEMENTS + "FluidTank.png");
 	public static final int DEFAULT_SCALE = 60;
 
 	protected IFluidTank tank;

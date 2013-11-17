@@ -1,7 +1,11 @@
 package cofh.gui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.Container;
@@ -9,17 +13,19 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import cofh.gui.element.ElementBase;
 import cofh.gui.element.TabBase;
 import cofh.gui.slot.SlotFalseCopy;
 import cofh.render.IconRegistry;
 import cofh.render.RenderHelper;
-import cofh.util.MathHelper;
+import cofh.util.StringHelper;
 
 /**
  * Base class for a modular GUIs. Works with Elements {@link ElementBase} and Tabs {@link TabBase} which are both modular elements.
@@ -29,9 +35,7 @@ import cofh.util.MathHelper;
  */
 public abstract class GuiBase extends GuiContainer {
 
-	public static final String PATH_ELEMENTS = "cofh:textures/gui/elements/";
-	public static final String PATH_ICONS = "cofh:textures/gui/icons/";
-
+	protected boolean drawInventory = true;
 	protected int mouseX = 0;
 	protected int mouseY = 0;
 
@@ -64,9 +68,11 @@ public abstract class GuiBase extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 
-		GL11.glDisable(GL11.GL_LIGHTING);
+		fontRenderer.drawString(StringHelper.localize(name), getCenteredOffset(StringHelper.localize(name)), 6, 0x404040);
+		if (drawInventory) {
+			fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 0x404040);
+		}
 		drawTooltips();
-		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
 	@Override
@@ -288,8 +294,8 @@ public abstract class GuiBase extends GuiContainer {
 
 		for (i = 0; i < width; i += 16) {
 			for (j = 0; j < height; j += 16) {
-				drawWidth = MathHelper.minI(width - i, 16);
-				drawHeight = MathHelper.minI(height - j, 16);
+				drawWidth = Math.min(width - i, 16);
+				drawHeight = Math.min(height - j, 16);
 				drawScaledTexturedModelRectFromIcon(x + i, y + j, icon, drawWidth, drawHeight);
 			}
 		}
@@ -349,7 +355,70 @@ public abstract class GuiBase extends GuiContainer {
 		if (tooltip == null || tooltip.equals("")) {
 			return;
 		}
-		drawCreativeTabHoveringText(tooltip, mouseX, mouseY);
+		drawTooltipHoveringText(Arrays.asList(new String[] { tooltip }), mouseX, mouseY, fontRenderer);
+	}
+
+	protected void drawTooltipHoveringText(List list, int x, int y, FontRenderer font) {
+
+		if (list.isEmpty()) {
+			return;
+		}
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		int k = 0;
+		Iterator iterator = list.iterator();
+
+		while (iterator.hasNext()) {
+			String s = (String) iterator.next();
+			int l = font.getStringWidth(s);
+
+			if (l > k) {
+				k = l;
+			}
+		}
+		int i1 = x + 12;
+		int j1 = y - 12;
+		int k1 = 8;
+
+		if (list.size() > 1) {
+			k1 += 2 + (list.size() - 1) * 10;
+		}
+		if (i1 + k > this.width) {
+			i1 -= 28 + k;
+		}
+		if (j1 + k1 + 6 > this.height) {
+			j1 = this.height - k1 - 6;
+		}
+		this.zLevel = 300.0F;
+		itemRenderer.zLevel = 300.0F;
+		int l1 = -267386864;
+		this.drawGradientRect(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
+		this.drawGradientRect(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
+		this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 + k1 + 3, l1, l1);
+		this.drawGradientRect(i1 - 4, j1 - 3, i1 - 3, j1 + k1 + 3, l1, l1);
+		this.drawGradientRect(i1 + k + 3, j1 - 3, i1 + k + 4, j1 + k1 + 3, l1, l1);
+		int i2 = 1347420415;
+		int j2 = (i2 & 16711422) >> 1 | i2 & -16777216;
+		this.drawGradientRect(i1 - 3, j1 - 3 + 1, i1 - 3 + 1, j1 + k1 + 3 - 1, i2, j2);
+		this.drawGradientRect(i1 + k + 2, j1 - 3 + 1, i1 + k + 3, j1 + k1 + 3 - 1, i2, j2);
+		this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2, i2);
+		this.drawGradientRect(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
+
+		for (int k2 = 0; k2 < list.size(); ++k2) {
+			String s1 = (String) list.get(k2);
+			font.drawStringWithShadow(s1, i1, j1, -1);
+
+			if (k2 == 0) {
+				j1 += 2;
+			}
+			j1 += 10;
+		}
+		this.zLevel = 0.0F;
+		itemRenderer.zLevel = 0.0F;
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 	}
 
 	/**
@@ -388,6 +457,10 @@ public abstract class GuiBase extends GuiContainer {
 	public int getMouseY() {
 
 		return mouseY;
+	}
+
+	public void overlayRecipe() {
+
 	}
 
 }

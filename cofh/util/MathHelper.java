@@ -164,20 +164,4 @@ public final class MathHelper {
 		return a > b ? a : b;
 	}
 
-	/**
-	 * Unchecked implementation to determine the smaller of two Integers. Parameters should be known to be valid in advance.
-	 */
-	public static int minI(int a, int b) {
-
-		return a < b ? a : b;
-	}
-
-	/**
-	 * Unchecked implementation to determine the larger of two Integers. Parameters should be known to be valid in advance.
-	 */
-	public static int maxI(int a, int b) {
-
-		return a > b ? a : b;
-	}
-
 }

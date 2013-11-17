@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -101,6 +102,14 @@ public final class RenderHelper {
 		tessellator.addVertexWithUV(x + width, y, z, icon.getMaxU(), icon.getMinV());
 		tessellator.addVertexWithUV(x, y, z, icon.getMinU(), icon.getMinV());
 		tessellator.draw();
+	}
+
+	public static final Icon getFluidTexture(Fluid fluid) {
+
+		if (fluid == null) {
+			return FluidRegistry.LAVA.getIcon();
+		}
+		return fluid.getIcon();
 	}
 
 	public static final Icon getFluidTexture(FluidStack fluid) {

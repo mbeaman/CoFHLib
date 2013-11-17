@@ -5,6 +5,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import cofh.gui.GuiBase;
+import cofh.gui.GuiProps;
 import cofh.gui.TabTracker;
 import cofh.render.RenderHelper;
 
@@ -15,6 +16,8 @@ import cofh.render.RenderHelper;
  * 
  */
 public abstract class TabBase extends ElementBase {
+
+	public static int tabExpandSpeed = 4;
 
 	public boolean open;
 	public int side = 1;
@@ -32,8 +35,8 @@ public abstract class TabBase extends ElementBase {
 	public int maxHeight = 22;
 	public int currentHeight = minHeight;
 
-	public static final ResourceLocation DEFAULT_TEXTURE_LEFT = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Tab_Left.png");
-	public static final ResourceLocation DEFAULT_TEXTURE_RIGHT = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Tab_Right.png");
+	public static final ResourceLocation DEFAULT_TEXTURE_LEFT = new ResourceLocation(GuiProps.PATH_ELEMENTS + "Tab_Left.png");
+	public static final ResourceLocation DEFAULT_TEXTURE_RIGHT = new ResourceLocation(GuiProps.PATH_ELEMENTS + "Tab_Right.png");
 
 	public TabBase(GuiBase gui) {
 
@@ -57,9 +60,9 @@ public abstract class TabBase extends ElementBase {
 	public void update() {
 
 		if (open && currentWidth < maxWidth) {
-			currentWidth += 8;
+			currentWidth += tabExpandSpeed;
 		} else if (!open && currentWidth > minWidth) {
-			currentWidth -= 8;
+			currentWidth -= tabExpandSpeed;
 		}
 
 		if (currentWidth > maxWidth) {
@@ -69,9 +72,9 @@ public abstract class TabBase extends ElementBase {
 		}
 
 		if (open && currentHeight < maxHeight) {
-			currentHeight += 8;
+			currentHeight += tabExpandSpeed;
 		} else if (!open && currentHeight > minHeight) {
-			currentHeight -= 8;
+			currentHeight -= tabExpandSpeed;
 		}
 
 		if (currentHeight > maxHeight) {

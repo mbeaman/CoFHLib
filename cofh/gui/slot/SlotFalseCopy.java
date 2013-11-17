@@ -24,7 +24,8 @@ public class SlotFalseCopy extends Slot {
 	@Override
 	public boolean canTakeStack(EntityPlayer player) {
 
-		return true;
+		// putStack(null);
+		return false;
 	}
 
 	@Override
@@ -34,12 +35,12 @@ public class SlotFalseCopy extends Slot {
 	}
 
 	@Override
-	public void putStack(ItemStack par1ItemStack) {
+	public void putStack(ItemStack stack) {
 
-		if (par1ItemStack != null) {
-			par1ItemStack.stackSize = 1;
+		if (stack != null) {
+			stack.stackSize = 1;
 		}
-		this.inventory.setInventorySlotContents(this.slotIndex, par1ItemStack);
+		this.inventory.setInventorySlotContents(this.slotIndex, stack);
 		this.onSlotChanged();
 	}
 

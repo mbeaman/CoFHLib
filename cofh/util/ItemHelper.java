@@ -73,7 +73,7 @@ public final class ItemHelper {
 			int var13 = theItem.getMaxDamage() - dmgItems[0].getItemDamageForDisplay();
 			int var8 = theItem.getMaxDamage() - dmgItems[1].getItemDamageForDisplay();
 			int var9 = var13 + var8 + theItem.getMaxDamage() * 5 / 100;
-			int var10 = MathHelper.maxI(0, theItem.getMaxDamage() - var9);
+			int var10 = Math.max(0, theItem.getMaxDamage() - var9);
 			return new ItemStack(dmgItems[0].itemID, 1, var10);
 		} else {
 			IRecipe recipe;
@@ -183,7 +183,8 @@ public final class ItemHelper {
 
 	public static boolean craftingEquivalent(ItemStack checked, ItemStack source, String oreDict) {
 
-		return areItemStacksEqualNoNBT(checked, source) ? true : oreDict == null ? false : getOreName(checked).equalsIgnoreCase(oreDict);
+		return areItemStacksEqualNoNBT(checked, source) ? true : oreDict == null ? false : oreDict.equals("Unknown") ? false : getOreName(checked)
+				.equalsIgnoreCase(oreDict);
 	}
 
 	public static String getItemNBTString(ItemStack theItem, String nbtKey, String invalidReturn) {
@@ -246,6 +247,34 @@ public final class ItemHelper {
 			ItemStack curStack;
 			for (int i = 0; i < nbtlist.tagCount(); i++) {
 				NBTTagCompound tag = (NBTTagCompound) nbtlist.tagAt(i);
+				curStack = ItemStack.loadItemStackFromNBT(tag);
+				if (curStack != null) {
+					list.add("    " + StringHelper.BRIGHT_GREEN + curStack.stackSize + " " + StringHelper.GRAY + curStack.getDisplayName());
+				}
+			}
+		}
+	}
+
+	public static void addInventoryInformation(ItemStack stack, List list, int minSlot, int maxSlot) {
+
+		if (stack.stackTagCompound.hasKey("Inventory") && stack.stackTagCompound.getTagList("Inventory").tagCount() > 0) {
+
+			if (CoFHProps.displayShiftForDetail && !StringHelper.isShiftKeyDown()) {
+				list.add(StringHelper.shiftForInfo);
+			}
+			if (!StringHelper.isShiftKeyDown()) {
+				return;
+			}
+			list.add("Contents:");
+			NBTTagList nbtlist = stack.stackTagCompound.getTagList("Inventory");
+			ItemStack curStack;
+			for (int i = 0; i < nbtlist.tagCount(); i++) {
+				NBTTagCompound tag = (NBTTagCompound) nbtlist.tagAt(i);
+				int slot = tag.getInteger("Slot");
+
+				if (slot < minSlot || slot > maxSlot) {
+					continue;
+				}
 				curStack = ItemStack.loadItemStackFromNBT(tag);
 				if (curStack != null) {
 					list.add("    " + StringHelper.BRIGHT_GREEN + curStack.stackSize + " " + StringHelper.GRAY + curStack.getDisplayName());

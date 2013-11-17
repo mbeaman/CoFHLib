@@ -3,12 +3,13 @@ package cofh.gui.element;
 import net.minecraft.util.ResourceLocation;
 import cofh.api.energy.IEnergyStorage;
 import cofh.gui.GuiBase;
+import cofh.gui.GuiProps;
 import cofh.render.RenderHelper;
 import cofh.util.MathHelper;
 
 public class ElementEnergyStored extends ElementBase {
 
-	public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(GuiBase.PATH_ELEMENTS + "Energy.png");
+	public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(GuiProps.PATH_ELEMENTS + "Energy.png");
 	public static final int DEFAULT_SCALE = 42;
 
 	protected IEnergyStorage storage;

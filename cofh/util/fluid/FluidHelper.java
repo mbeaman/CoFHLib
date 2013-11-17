@@ -1,8 +1,14 @@
 package cofh.util.fluid;
 
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -122,31 +128,55 @@ public class FluidHelper {
 
 	public static int getFluidLuminosity(FluidStack fluid) {
 
-		return fluid == null ? 0 : getFluidLuminosity(FluidRegistry.getFluid(fluid.fluidID));
+		return fluid == null ? 0 : getFluidLuminosity(fluid.getFluid());
 	}
 
-	public static FluidStack getLiquidFromCoords(World worldObj, int x, int y, int z) {
+	public static FluidStack getFluidFromCoords(World worldObj, int x, int y, int z) {
 
-		int BlockID = worldObj.getBlockId(x, y, z);
-		int meta = worldObj.getBlockMetadata(x, y, z);
+		int bId = worldObj.getBlockId(x, y, z);
+		int bMeta = worldObj.getBlockMetadata(x, y, z);
 
-		if (BlockID == 9 || BlockID == 8) {
-			if (meta == 0) {
+		if (bId == 9 || bId == 8) {
+			if (bMeta == 0) {
 				return new FluidStack(FluidRegistry.WATER, 1000);
 			} else {
 				return null;
 			}
-		} else if (BlockID == 10) {
-			if (meta == 0) {
+		} else if (bId == 10 || bId == 11) {
+			if (bMeta == 0) {
 				return new FluidStack(FluidRegistry.LAVA, 1000);
 			} else {
 				return null;
 			}
-		} else if (Block.blocksList[BlockID] != null && Block.blocksList[BlockID] instanceof IFluidBlock) {
-			IFluidBlock theBlock = (IFluidBlock) Block.blocksList[BlockID];
-			return theBlock.drain(worldObj, x, y, z, true);
+		} else if (Block.blocksList[bId] != null && Block.blocksList[bId] instanceof IFluidBlock) {
+			IFluidBlock block = (IFluidBlock) Block.blocksList[bId];
+			return block.drain(worldObj, x, y, z, true);
 		}
 		return null;
+	}
+
+	public static void writeFluidStackToPacket(FluidStack theFluid, DataOutput data) throws IOException {
+
+		if (theFluid == null || theFluid.fluidID == 0) {
+			data.writeShort(-1);
+		} else {
+			byte[] abyte = CompressedStreamTools.compress(theFluid.writeToNBT(new NBTTagCompound()));
+			data.writeShort((short) abyte.length);
+			data.write(abyte);
+		}
+	}
+
+	public static FluidStack readFluidStackFromPacket(DataInput data) throws IOException {
+
+		short length = data.readShort();
+
+		if (length < 0) {
+			return null;
+		} else {
+			byte[] abyte = new byte[length];
+			data.readFully(abyte);
+			return FluidStack.loadFluidStackFromNBT(CompressedStreamTools.decompress(abyte));
+		}
 	}
 
 }
