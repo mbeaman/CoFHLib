@@ -2,6 +2,7 @@ package cofh.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -153,6 +154,16 @@ public class ConfigHandler {
 		return modConfiguration.getCategory(category);
 	}
 
+	public Map getCategoryMap(String category) {
+
+		return modConfiguration.getCategory(category).getValues();
+	}
+
+	public Set<String> getCategoryKeys(String category) {
+
+		return modConfiguration.getCategory(category).getValues().keySet();
+	}
+
 	public boolean hasCategory(String category) {
 
 		return modConfiguration.hasCategory(category);
@@ -298,12 +309,14 @@ public class ConfigHandler {
 		return true;
 	}
 
-	public void cleanUp(boolean delConfig) {
+	public void cleanUp(boolean delConfig, boolean saveVersion) {
 
 		removeProperty("general", "version");
 		removeProperty("general", "Version");
-		get("general", "Version", modVersion);
 
+		if (saveVersion) {
+			get("general", "Version", modVersion);
+		}
 		modConfiguration.save();
 
 		for (int i = 0; i < blockEntries.length; ++i) {

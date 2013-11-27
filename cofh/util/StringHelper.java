@@ -3,7 +3,10 @@ package cofh.util;
 import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Keyboard;
 
@@ -55,6 +58,26 @@ public final class StringHelper {
 		return StatCollector.translateToLocal(key);
 	}
 
+	public static String getFluidName(FluidStack fluid) {
+
+		return getFluidName(fluid.getFluid());
+	}
+
+	public static String getFluidName(Fluid fluid) {
+
+		String fluidName = "";
+		if (fluid.getRarity() == EnumRarity.uncommon) {
+			fluidName += YELLOW;
+		} else if (fluid.getRarity() == EnumRarity.rare) {
+			fluidName += BRIGHT_BLUE;
+		} else if (fluid.getRarity() == EnumRarity.epic) {
+			fluidName += PINK;
+		}
+		fluidName += fluid.getLocalizedName() + END;
+
+		return fluidName;
+	}
+
 	/** When formatting a string, always apply color before font modification. */
 	public static final String BLACK = (char) 167 + "0";
 	public static final String BLUE = (char) 167 + "1";
@@ -81,6 +104,6 @@ public final class StringHelper {
 	public static final String END = (char) 167 + "r";
 
 	public static String shiftForInfo = StringHelper.GRAY + localize("message.cofh.holdShift1") + " " + StringHelper.BRIGHT_GREEN + StringHelper.ITALIC
-			+ localize("message.cofh.holdShift2") + " " + StringHelper.END + StringHelper.GRAY + localize("message.cofh.holdShift3");
+			+ localize("message.cofh.holdShift2") + " " + StringHelper.END + StringHelper.GRAY + localize("message.cofh.holdShift3") + StringHelper.END;
 
 }

@@ -16,7 +16,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import cofh.entity.PlayerFalse;
 
 /**
  * Contains various helper functions to assist with {@link Block} and Block-related manipulation and interaction.
@@ -54,6 +53,7 @@ public final class BlockHelper {
 
 	public static final class RotationType {
 
+		public static final int PREVENT = -1;
 		public static final int FOUR_WAY = 1;
 		public static final int SIX_WAY = 2;
 		public static final int RAIL = 3;
@@ -70,6 +70,7 @@ public final class BlockHelper {
 	static {
 		rotateType[Block.wood.blockID] = RotationType.LOG;
 		rotateType[Block.dispenser.blockID] = RotationType.SIX_WAY;
+		rotateType[Block.bed.blockID] = RotationType.PREVENT;
 		rotateType[Block.railPowered.blockID] = RotationType.RAIL;
 		rotateType[Block.railDetector.blockID] = RotationType.RAIL;
 		rotateType[Block.pistonStickyBase.blockID] = RotationType.SIX_WAY;
@@ -231,7 +232,7 @@ public final class BlockHelper {
 			return (bMeta + 8) % 16;
 		case RotationType.CHEST:
 			int coords[] = new int[3];
-			for (int i = 2; i < 6; ++i) {
+			for (int i = 2; i < 6; i++) {
 				coords = getAdjacentCoordinatesForSide(x, y, z, i);
 				if (world.getBlockId(coords[0], coords[1], coords[2]) == Block.chest.blockID) {
 					world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[bMeta], 1);
@@ -257,6 +258,7 @@ public final class BlockHelper {
 			return bMeta + shift;
 		case RotationType.SIGN:
 			return ++bMeta % 16;
+		case RotationType.PREVENT:
 		default:
 			return bMeta;
 		}
@@ -291,7 +293,7 @@ public final class BlockHelper {
 			return (bMeta + 8) % 16;
 		case RotationType.CHEST:
 			int coords[] = new int[3];
-			for (int i = 2; i < 6; ++i) {
+			for (int i = 2; i < 6; i++) {
 				coords = getAdjacentCoordinatesForSide(x, y, z, i);
 				if (world.getBlockId(coords[0], coords[1], coords[2]) == Block.chest.blockID) {
 					world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[bMeta], 1);
@@ -316,6 +318,7 @@ public final class BlockHelper {
 			}
 		case RotationType.SIGN:
 			return ++bMeta % 16;
+		case RotationType.PREVENT:
 		default:
 			return bMeta;
 		}
@@ -326,23 +329,23 @@ public final class BlockHelper {
 		return bId < 0 || bId >= Block.blocksList.length ? null : Block.blocksList[bId] != null;
 	}
 
-	public static List<ItemStack> breakBlock(World worldObj, int x, int y, int z, int blockId, int fortune, boolean doBreak, boolean silkTouch) {
+	public static List<ItemStack> breakBlock(World worldObj, int x, int y, int z, int bId, int fortune, boolean doBreak, boolean silkTouch) {
 
-		if (Block.blocksList[blockId].getBlockHardness(worldObj, x, y, z) == -1) {
+		if (Block.blocksList[bId].getBlockHardness(worldObj, x, y, z) == -1) {
 			return new LinkedList<ItemStack>();
 		}
 		int meta = worldObj.getBlockMetadata(x, y, z);
 		List<ItemStack> stacks = null;
-		if (silkTouch && Block.blocksList[blockId].canSilkHarvest(worldObj, null, x, y, z, meta)) {
-			ItemStack itemstack = createStackedBlock(Block.blocksList[blockId], meta);
+		if (silkTouch && Block.blocksList[bId].canSilkHarvest(worldObj, null, x, y, z, meta)) {
+			ItemStack itemstack = createStackedBlock(Block.blocksList[bId], meta);
 		} else {
-			stacks = Block.blocksList[blockId].getBlockDropped(worldObj, x, y, z, meta, fortune);
+			stacks = Block.blocksList[bId].getBlockDropped(worldObj, x, y, z, meta, fortune);
 		}
 
 		if (!doBreak) {
 			return stacks;
 		}
-		worldObj.playAuxSFXAtEntity(null, 2001, x, y, z, blockId + (meta << 12));
+		worldObj.playAuxSFXAtEntity(null, 2001, x, y, z, bId + (meta << 12));
 		worldObj.setBlock(x, y, z, 0);
 
 		List result = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - 2, y - 2, z - 2, x + 3, y + 3, z + 3));
@@ -359,24 +362,12 @@ public final class BlockHelper {
 		return stacks;
 	}
 
-	public static ItemStack createStackedBlock(Block theBlock, int meta) {
+	public static ItemStack createStackedBlock(Block block, int bMeta) {
 
-		if (theBlock.blockID >= 0 && theBlock.blockID < Item.itemsList.length && Item.itemsList[theBlock.blockID].getHasSubtypes()) {
-			return new ItemStack(theBlock.blockID, 1, meta);
+		if (block.blockID >= 0 && block.blockID < Item.itemsList.length && Item.itemsList[block.blockID].getHasSubtypes()) {
+			return new ItemStack(block.blockID, 1, bMeta);
 		}
-
-		return new ItemStack(theBlock.blockID, 1, 0);
-	}
-
-	public static boolean isBlockBreakable(PlayerFalse myFakePlayer, World worldObj, int x, int y, int z) {
-
-		int blockID = worldObj.getBlockId(x, y, z);
-		if (myFakePlayer == null) {
-			return Block.blocksList[blockID] != null ? Block.blocksList[blockID].getBlockHardness(worldObj, x, y, z) > -1 ? true : false : false;
-		} else {
-			return Block.blocksList[blockID] != null ? Block.blocksList[blockID].getPlayerRelativeBlockHardness(myFakePlayer, worldObj, x, y, z) > -1 ? true
-					: false : false;
-		}
+		return new ItemStack(block.blockID, 1, 0);
 	}
 
 }

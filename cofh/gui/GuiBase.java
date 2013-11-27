@@ -1,7 +1,6 @@
 package cofh.gui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,6 +39,7 @@ public abstract class GuiBase extends GuiContainer {
 	protected int mouseY = 0;
 
 	protected int lastIndex = -1;
+	protected ArrayList<String> tooltip = new ArrayList<String>();
 
 	protected String name;
 	protected ResourceLocation texture;
@@ -176,16 +176,14 @@ public abstract class GuiBase extends GuiContainer {
 		TabBase tab = getTabAtPosition(mouseX, mouseY);
 
 		if (tab != null) {
-			drawTooltip(tab.getTooltip());
-			return;
+			tab.addTooltip(tooltip);
 		}
 		ElementBase element = getElementAtPosition(mouseX, mouseY);
 
 		if (element != null) {
-			drawTooltip(element.getTooltip());
-			return;
+			element.addTooltip(tooltip);
 		}
-
+		drawTooltip(tooltip);
 	}
 
 	/* ELEMENTS */
@@ -281,6 +279,8 @@ public abstract class GuiBase extends GuiContainer {
 			return;
 		}
 		RenderHelper.setBlockTextureSheet();
+		RenderHelper.setColor3ub(fluid.getFluid().getColor(fluid));
+
 		drawTiledTexture(x, y, fluid.getFluid().getIcon(fluid), width, height);
 	}
 
@@ -350,17 +350,24 @@ public abstract class GuiBase extends GuiContainer {
 		tessellator.draw();
 	}
 
-	public void drawTooltip(String tooltip) {
+	public void drawTooltip(String stringTip) {
 
-		if (tooltip == null || tooltip.equals("")) {
-			return;
+		tooltip.add(stringTip);
+		drawTooltip(tooltip);
+	}
+
+	public void drawTooltip(List<String> list) {
+
+		drawTooltipHoveringText(list, mouseX, mouseY, fontRenderer);
+
+		if (list != null) {
+			list.clear();
 		}
-		drawTooltipHoveringText(Arrays.asList(new String[] { tooltip }), mouseX, mouseY, fontRenderer);
 	}
 
 	protected void drawTooltipHoveringText(List list, int x, int y, FontRenderer font) {
 
-		if (list.isEmpty()) {
+		if (list == null || list.isEmpty()) {
 			return;
 		}
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);

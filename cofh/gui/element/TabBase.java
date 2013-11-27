@@ -17,7 +17,7 @@ import cofh.render.RenderHelper;
  */
 public abstract class TabBase extends ElementBase {
 
-	public static int tabExpandSpeed = 4;
+	public static int tabExpandSpeed = 8;
 
 	public boolean open;
 	public int side = 1;

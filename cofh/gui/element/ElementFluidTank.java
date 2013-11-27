@@ -1,10 +1,13 @@
 package cofh.gui.element;
 
+import java.util.List;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.IFluidTank;
 import cofh.gui.GuiBase;
 import cofh.gui.GuiProps;
 import cofh.render.RenderHelper;
+import cofh.util.StringHelper;
 
 public class ElementFluidTank extends ElementBase {
 
@@ -53,15 +56,19 @@ public class ElementFluidTank extends ElementBase {
 			return;
 		}
 		int amount = getScaled();
+
 		gui.drawFluid(posX, posY + sizeY - amount, tank.getFluid(), sizeX, amount);
 		RenderHelper.bindTexture(texture);
 		drawTexturedModalRect(posX, posY, 32 + gaugeType * 16, 1, sizeX, sizeY);
 	}
 
 	@Override
-	public String getTooltip() {
+	public void addTooltip(List<String> list) {
 
-		return "" + tank.getFluidAmount() + " / " + tank.getCapacity() + " mB";
+		if (tank.getFluid() != null) {
+			list.add(StringHelper.getFluidName(tank.getFluid()));
+		}
+		list.add("" + tank.getFluidAmount() + " / " + tank.getCapacity() + " mB");
 	}
 
 	@Override

@@ -36,10 +36,4 @@ public class ElementSimple extends ElementBase {
 		drawTexturedModalRect(posX, posY, texU, texV, sizeX, sizeY);
 	}
 
-	@Override
-	public String getTooltip() {
-
-		return null;
-	}
-
 }
