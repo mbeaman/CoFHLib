@@ -108,7 +108,8 @@ public class ThermalExpansionHelper {
 	}
 
 	/**
-	 * Use this to register an Ore TYPE as a "Blast" recipe - it will require Pyrotheum Dust instead of Sand to smelt. Do not add the prefix.
+	 * Use this to register an Ore TYPE as a "Blast" recipe - it will require Pyrotheum Dust to smelt. Do not add the prefix. This is an opt-in for ores which
+	 * do NOT have vanilla furnace recipes.
 	 * 
 	 * Ex: "Steel" or "ElectrumFlux", not "dustSteel" or "dustElectrumFlux"
 	 * 
@@ -190,6 +191,16 @@ public class ThermalExpansionHelper {
 		toSend.setInteger("energy", energy);
 
 		FMLInterModComms.sendMessage("ThermalExpansion", "CompressionFuel", toSend);
+	}
+
+	public static void addReactantFuel(String fluidName, int energy) {
+
+		NBTTagCompound toSend = new NBTTagCompound();
+
+		toSend.setString("fluidName", fluidName);
+		toSend.setInteger("energy", energy);
+
+		FMLInterModComms.sendMessage("ThermalExpansion", "ReactantFuel", toSend);
 	}
 
 	public static void addCoolant(String fluidName, int energy) {
