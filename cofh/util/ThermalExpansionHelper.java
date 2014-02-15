@@ -15,8 +15,8 @@ public class ThermalExpansionHelper {
 
 		NBTTagCompound toSend = new NBTTagCompound();
 		toSend.setInteger("energy", energy);
-		toSend.setCompoundTag("input", new NBTTagCompound());
-		toSend.setCompoundTag("output", new NBTTagCompound());
+		toSend.getCompoundTag("input");
+		toSend.getCompoundTag("output");
 
 		input.writeToNBT(toSend.getCompoundTag("input"));
 		output.writeToNBT(toSend.getCompoundTag("output"));
@@ -38,9 +38,9 @@ public class ThermalExpansionHelper {
 		NBTTagCompound toSend = new NBTTagCompound();
 
 		toSend.setInteger("energy", energy);
-		toSend.setCompoundTag("input", new NBTTagCompound());
-		toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
-		toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
+		toSend.getCompoundTag("input");
+		toSend.getCompoundTag("primaryOutput");
+		toSend.getCompoundTag("secondaryOutput");
 
 		input.writeToNBT(toSend.getCompoundTag("input"));
 		primaryOutput.writeToNBT(toSend.getCompoundTag("primaryOutput"));
@@ -65,9 +65,9 @@ public class ThermalExpansionHelper {
 		NBTTagCompound toSend = new NBTTagCompound();
 
 		toSend.setInteger("energy", energy);
-		toSend.setCompoundTag("input", new NBTTagCompound());
-		toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
-		toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
+		toSend.getCompoundTag("input");
+		toSend.getCompoundTag("primaryOutput");
+		toSend.getCompoundTag("secondaryOutput");
 
 		input.writeToNBT(toSend.getCompoundTag("input"));
 		primaryOutput.writeToNBT(toSend.getCompoundTag("primaryOutput"));
@@ -93,10 +93,10 @@ public class ThermalExpansionHelper {
 		NBTTagCompound toSend = new NBTTagCompound();
 
 		toSend.setInteger("energy", energy);
-		toSend.setCompoundTag("primaryInput", new NBTTagCompound());
-		toSend.setCompoundTag("secondaryInput", new NBTTagCompound());
-		toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
-		toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
+		toSend.getCompoundTag("primaryInput");
+		toSend.getCompoundTag("secondaryInput");
+		toSend.getCompoundTag("primaryOutput");
+		toSend.getCompoundTag("secondaryOutput");
 
 		primaryInput.writeToNBT(toSend.getCompoundTag("primaryInput"));
 		secondaryInput.writeToNBT(toSend.getCompoundTag("secondaryInput"));
@@ -129,8 +129,8 @@ public class ThermalExpansionHelper {
 		NBTTagCompound toSend = new NBTTagCompound();
 
 		toSend.setInteger("energy", energy);
-		toSend.setCompoundTag("input", new NBTTagCompound());
-		toSend.setCompoundTag("output", new NBTTagCompound());
+		toSend.getCompoundTag("input");
+		toSend.getCompoundTag("output");
 
 		input.writeToNBT(toSend.getCompoundTag("input"));
 		output.writeToNBT(toSend.getCompoundTag("output"));
@@ -143,9 +143,9 @@ public class ThermalExpansionHelper {
 		NBTTagCompound toSend = new NBTTagCompound();
 
 		toSend.setInteger("energy", energy);
-		toSend.setCompoundTag("input", new NBTTagCompound());
-		toSend.setCompoundTag("output", new NBTTagCompound());
-		toSend.setCompoundTag("fluid", new NBTTagCompound());
+		toSend.getCompoundTag("input");
+		toSend.getCompoundTag("output");
+		toSend.getCompoundTag("fluid");
 
 		input.writeToNBT(toSend.getCompoundTag("input"));
 		output.writeToNBT(toSend.getCompoundTag("output"));
@@ -160,9 +160,9 @@ public class ThermalExpansionHelper {
 		NBTTagCompound toSend = new NBTTagCompound();
 
 		toSend.setInteger("energy", energy);
-		toSend.setCompoundTag("input", new NBTTagCompound());
-		toSend.setCompoundTag("output", new NBTTagCompound());
-		toSend.setCompoundTag("fluid", new NBTTagCompound());
+		toSend.getCompoundTag("input");
+		toSend.getCompoundTag("output");
+		toSend.getCompoundTag("fluid");
 
 		input.writeToNBT(toSend.getCompoundTag("input"));
 		output.writeToNBT(toSend.getCompoundTag("output"));

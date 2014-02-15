@@ -70,10 +70,11 @@ public final class ItemHelper {
 			return null;
 		}
 		if (tag == null) {
-			tag = new NBTTagCompound("tag");
+//			tag = new NBTTagCompound("tag"); I actually have no idea what I'm doing here... :(
+			tag = new NBTTagCompound().getCompoundTag("tag");
 		}
 		if (!tag.hasKey("display")) {
-			tag.setCompoundTag("display", new NBTTagCompound());
+			tag.getCompoundTag("display");
 		}
 		tag.getCompoundTag("display").setString("Name", name);
 
@@ -92,7 +93,7 @@ public final class ItemHelper {
 
 		if (stack.stackSize == 1) {
 			if (stack.getItem().hasContainerItem()) {
-				return stack.getItem().getContainerItemStack(stack);
+				return stack.getItem().getContainerItem(stack);
 			} else {
 				return null;
 			}
@@ -150,7 +151,7 @@ public final class ItemHelper {
 	 */
 	public static int getHashCode(ItemStack stack) {
 
-		return stack.getItemDamage() | stack.itemID << 16;
+		return stack.getItemDamage() | Item.getIdFromItem(stack.getItem()) << 16;
 	}
 
 	/**

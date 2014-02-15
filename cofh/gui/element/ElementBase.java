@@ -16,7 +16,7 @@ import cpw.mods.fml.client.FMLClientHandler;
  */
 public abstract class ElementBase {
 
-	public static final SoundManager elementSoundManager = FMLClientHandler.instance().getClient().sndManager;
+//	public static final SoundManager elementSoundManager = FMLClientHandler.instance().getClient().sndManager;
 	public static final FontRenderer elementFontRenderer = FMLClientHandler.instance().getClient().fontRenderer;
 
 	protected GuiBase gui;

@@ -1,5 +1,6 @@
 package cofh.util.inventory;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -43,10 +44,11 @@ public class ComparableItemStackNBT extends ComparableItemStack {
 		if (tag == null) {
 			return super.toItemStack();
 		}
+		int itemID = Item.getIdFromItem(item);
 		if (itemID < 0 || itemID >= 32000) {
 			return null;
 		}
-		ItemStack ret = new ItemStack(itemID, stackSize, metadata);
+		ItemStack ret = new ItemStack(item, stackSize, metadata);
 		ret.stackTagCompound = (NBTTagCompound) tag.copy();
 
 		return ret;

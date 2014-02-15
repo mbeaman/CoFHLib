@@ -15,7 +15,7 @@ import cofh.util.ItemHelper;
  */
 public class ComparableItemStack {
 
-	public int itemID = -1;
+	public Item item = null;
 	public int metadata = -1;
 	public int stackSize = -1;
 	public int oreID = -1;
@@ -23,16 +23,16 @@ public class ComparableItemStack {
 	public ComparableItemStack(ItemStack stack) {
 
 		if (stack != null) {
-			itemID = stack.itemID;
+			item = stack.getItem();
 			metadata = stack.getItemDamage();
 			stackSize = stack.stackSize;
 			oreID = OreDictionary.getOreID(stack);
 		}
 	}
 
-	public ComparableItemStack(int itemID, int damage, int stackSize) {
+	public ComparableItemStack(Item item, int damage, int stackSize) {
 
-		this.itemID = itemID;
+		this.item = item;
 		this.metadata = damage;
 		this.stackSize = stackSize;
 		this.oreID = OreDictionary.getOreID(this.toItemStack());
@@ -40,7 +40,7 @@ public class ComparableItemStack {
 
 	public ComparableItemStack(ComparableItemStack stack) {
 
-		this.itemID = stack.itemID;
+		this.item = stack.item;
 		this.metadata = stack.metadata;
 		this.stackSize = stack.stackSize;
 		this.oreID = stack.oreID;
@@ -50,7 +50,7 @@ public class ComparableItemStack {
 
 		if (ItemHelper.oreNameExists(oreName)) {
 			ItemStack ore = OreDictionary.getOres(oreName).get(0);
-			itemID = ore.itemID;
+			item = ore.getItem();
 			metadata = ore.getItemDamage();
 			stackSize = 1;
 			oreID = OreDictionary.getOreID(oreName);
@@ -60,12 +60,12 @@ public class ComparableItemStack {
 	public ComparableItemStack set(ItemStack stack) {
 
 		if (stack != null) {
-			itemID = stack.itemID;
+			item = stack.getItem();
 			metadata = stack.getItemDamage();
 			stackSize = stack.stackSize;
 			oreID = OreDictionary.getOreID(stack);
 		} else {
-			itemID = -1;
+			item = null;
 			metadata = -1;
 			stackSize = -1;
 			oreID = -1;
@@ -76,12 +76,12 @@ public class ComparableItemStack {
 	public ComparableItemStack set(ComparableItemStack stack) {
 
 		if (stack != null) {
-			itemID = stack.itemID;
+			item = stack.item;
 			metadata = stack.metadata;
 			stackSize = stack.stackSize;
 			oreID = stack.oreID;
 		} else {
-			itemID = -1;
+		    item = null;
 			metadata = -1;
 			stackSize = -1;
 			oreID = -1;
@@ -91,7 +91,7 @@ public class ComparableItemStack {
 
 	public boolean isItemEqual(ComparableItemStack other) {
 
-		return other != null && (oreID != -1 && oreID == other.oreID || itemID == other.itemID && metadata == other.metadata);
+		return other != null && (oreID != -1 && oreID == other.oreID || item.equals(other.item) && metadata == other.metadata);
 	}
 
 	public boolean isStackEqual(ComparableItemStack other) {
@@ -106,12 +106,12 @@ public class ComparableItemStack {
 
 	public Item getItem() {
 
-		return itemID < 0 || itemID >= 32000 ? null : Item.itemsList[itemID];
+		return item;
 	}
 
 	public ItemStack toItemStack() {
-
-		return itemID < 0 || itemID >= 32000 ? null : new ItemStack(itemID, stackSize, metadata);
+	    
+		return new ItemStack(item, stackSize, metadata);
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class ComparableItemStack {
 	@Override
 	public int hashCode() {
 
-		return oreID != -1 ? oreID : metadata | itemID << 16;
+		return oreID != -1 ? oreID : metadata | Item.getIdFromItem(item) << 16;
 	}
 
 	@Override

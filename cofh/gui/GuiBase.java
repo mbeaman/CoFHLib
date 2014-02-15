@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
@@ -70,9 +70,9 @@ public abstract class GuiBase extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 
-		fontRenderer.drawString(StringHelper.localize(name), getCenteredOffset(StringHelper.localize(name)), 6, 0x404040);
+		fontRendererObj.drawString(StringHelper.localize(name), getCenteredOffset(StringHelper.localize(name)), 6, 0x404040);
 		if (drawInventory) {
-			fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 0x404040);
+			fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 0x404040);
 		}
 		if (!Loader.isModLoaded("NotEnoughItems") && mc.thePlayer.inventory.getItemStack() == null) {
 			addTooltips(tooltip);
@@ -276,7 +276,7 @@ public abstract class GuiBase extends GuiContainer {
 	/**
 	 * Essentially a placeholder method for tabs to use should they need to draw a button.
 	 */
-	public void drawButton(Icon icon, int x, int y, int spriteSheet, int mode) {
+	public void drawButton(IIcon icon, int x, int y, int spriteSheet, int mode) {
 
 		drawIcon(icon, x, y, spriteSheet);
 	}
@@ -300,7 +300,7 @@ public abstract class GuiBase extends GuiContainer {
 		drawTiledTexture(x, y, fluid.getFluid().getIcon(fluid), width, height);
 	}
 
-	public void drawTiledTexture(int x, int y, Icon icon, int width, int height) {
+	public void drawTiledTexture(int x, int y, IIcon icon, int width, int height) {
 
 		int i = 0;
 		int j = 0;

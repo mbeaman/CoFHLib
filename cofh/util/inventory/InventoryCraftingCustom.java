@@ -53,13 +53,18 @@ public class InventoryCraftingCustom extends InventoryCrafting {
 	}
 
 	@Override
-	public String getInvName() {
+	public void markDirty() {
+	    
+	}
+	
+	@Override
+	public String getInventoryName() {
 
 		return "container.crafting";
 	}
-
+	
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean hasCustomInventoryName() {
 
 		return false;
 	}
@@ -116,23 +121,18 @@ public class InventoryCraftingCustom extends InventoryCrafting {
 	}
 
 	@Override
-	public void onInventoryChanged() {
-
-	}
-
-	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
 
 		return true;
 	}
 
 	@Override
-	public void openChest() {
+	public void openInventory() {
 
 	}
 
 	@Override
-	public void closeChest() {
+	public void closeInventory() {
 
 	}
 

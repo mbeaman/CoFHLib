@@ -6,8 +6,9 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -61,8 +62,8 @@ public final class RenderHelper {
 	public static void renderItemAsBlock(RenderBlocks renderer, ItemStack item, double translateX, double translateY, double translateZ) {
 
 		Tessellator tessellator = tessellator();
-		Block block = Block.stone;
-		Icon texture = item.getIconIndex();
+		Block block = Blocks.stone;
+		IIcon texture = item.getIconIndex();
 
 		if (texture == null) {
 			return;
@@ -92,13 +93,13 @@ public final class RenderHelper {
 		tessellator.draw();
 	}
 
-	public static void renderItemIn2D(Icon icon) {
+	public static void renderItemIn2D(IIcon icon) {
 
 		ItemRenderer.renderItemIn2D(Tessellator.instance, icon.getMaxU(), icon.getMinV(), icon.getMinU(), icon.getMaxV(), icon.getIconWidth(),
 				icon.getIconHeight(), 0.0625F);
 	}
 
-	public static void renderIcon(Icon icon, double z) {
+	public static void renderIcon(IIcon icon, double z) {
 
 		Tessellator.instance.startDrawingQuads();
 		Tessellator.instance.addVertexWithUV(0, 16, z, icon.getMinU(), icon.getMaxV());
@@ -108,7 +109,7 @@ public final class RenderHelper {
 		Tessellator.instance.draw();
 	}
 
-	public static void renderIcon(int x, int y, int z, Icon icon, int width, int height) {
+	public static void renderIcon(int x, int y, int z, IIcon icon, int width, int height) {
 
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
@@ -119,7 +120,7 @@ public final class RenderHelper {
 		tessellator.draw();
 	}
 
-	public static final Icon getFluidTexture(Fluid fluid) {
+	public static final IIcon getFluidTexture(Fluid fluid) {
 
 		if (fluid == null) {
 			return FluidRegistry.LAVA.getIcon();
@@ -127,7 +128,7 @@ public final class RenderHelper {
 		return fluid.getIcon();
 	}
 
-	public static final Icon getFluidTexture(FluidStack fluid) {
+	public static final IIcon getFluidTexture(FluidStack fluid) {
 
 		if (fluid == null || fluid.getFluid() == null || fluid.getFluid().getIcon(fluid) == null) {
 			return FluidRegistry.LAVA.getIcon();

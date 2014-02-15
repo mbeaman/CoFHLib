@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -197,8 +197,8 @@ public class FluidHelper {
 	}
 
 	public static FluidStack getFluidFromWorld(World worldObj, int x, int y, int z) {
-
-		int bId = worldObj.getBlockId(x, y, z);
+	    Block block = worldObj.getBlock(x, y, z);
+		int bId = Block.getIdFromBlock(block);
 		int bMeta = worldObj.getBlockMetadata(x, y, z);
 
 		if (bId == 9 || bId == 8) {
@@ -213,9 +213,9 @@ public class FluidHelper {
 			} else {
 				return null;
 			}
-		} else if (Block.blocksList[bId] != null && Block.blocksList[bId] instanceof IFluidBlock) {
-			IFluidBlock block = (IFluidBlock) Block.blocksList[bId];
-			return block.drain(worldObj, x, y, z, true);
+		} else if (block != null && block instanceof IFluidBlock) {
+			IFluidBlock fluidBlock = (IFluidBlock) block;
+			return fluidBlock.drain(worldObj, x, y, z, true);
 		}
 		return null;
 	}

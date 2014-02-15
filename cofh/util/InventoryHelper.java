@@ -4,7 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.transport.IItemConduit;
 
 public class InventoryHelper {
@@ -99,7 +99,7 @@ public class InventoryHelper {
 			}
 		}
 		if (retStack != null) {
-			theInventory.onInventoryChanged();
+			theInventory.markDirty(); //.onInventoryChanged(); ? Could be completely wrong.
 		}
 		return retStack;
 	}
@@ -142,7 +142,7 @@ public class InventoryHelper {
 			}
 		}
 		if (stack == null || stack.stackSize != stackSize) {
-			theInventory.onInventoryChanged();
+			theInventory.markDirty(); //.onInventoryChanged(); ? Could be completely wrong.
 		}
 		return stack;
 	}

@@ -1,5 +1,6 @@
 package cofh.util.inventory;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -40,9 +41,9 @@ public class ComparableItemStackSafe extends ComparableItemStack {
 		oreID = getOreID(stack);
 	}
 
-	public ComparableItemStackSafe(int itemID, int damage, int stackSize) {
+	public ComparableItemStackSafe(Item item, int damage, int stackSize) {
 
-		super(itemID, damage, stackSize);
+		super(item, damage, stackSize);
 		this.oreID = getOreID(this.toItemStack());
 	}
 
